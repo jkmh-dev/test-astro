@@ -1,22 +1,59 @@
 ---
 import Layout from "../layouts/Layout.astro";
 ---
+
 <Layout title="Sobre Nosotros">
-  <section class="text-center py-10">
-    <h1 class="text-4xl font-bold text-blue-600">Sobre Nosotros</h1>
-    <p class="text-lg text-gray-600 mt-4 max-w-2xl mx-auto">
-      Astro Amazon es una plataforma dedicada a recomendar los mejores productos de Amazon.  
-      Nos enfocamos en ayudarte a encontrar las mejores ofertas con análisis detallados.
+  <!-- Sección Principal -->
+  <section class="text-center py-10 bg-gradient-to-r from-blue-500 to-indigo-600 text-white">
+    <h1 class="text-5xl font-bold">Sobre Nosotros</h1>
+    <p class="text-lg mt-4 max-w-3xl mx-auto">
+      Astro Amazon es una plataforma dedicada a recomendar los mejores productos de Amazon. Nos enfocamos en ayudarte a encontrar las mejores ofertas con análisis detallados y recomendaciones personalizadas para ti.
     </p>
   </section>
 
-  <section class="mt-10 flex flex-col md:flex-row items-center gap-8">
-    <img src="/images/team.jpg" alt="Nuestro equipo" class="w-full md:w-1/2 rounded-lg shadow-md">
+  <!-- Sección de Imágenes y Misión -->
+  <section class="mt-16 flex flex-col md:flex-row items-center gap-8 px-6 md:px-12">
+    <!-- Imagen de Equipo -->
+    <img src="/images/team.jpg" alt="Nuestro equipo" class="w-full md:w-1/2 rounded-lg shadow-lg object-cover h-80 md:h-auto">
+    
+    <!-- Misión de la Empresa -->
     <div class="md:w-1/2">
-      <h2 class="text-2xl font-semibold text-gray-900">Nuestra misión</h2>
-      <p class="text-gray-600 mt-4">
-        Brindar recomendaciones confiables basadas en experiencia y análisis, para que siempre tomes la mejor decisión de compra.
+      <h2 class="text-3xl font-semibold text-gray-900 mb-4">Nuestra Misión</h2>
+      <p class="text-gray-700 text-lg">
+        Brindar recomendaciones confiables basadas en experiencia y análisis, para que siempre tomes la mejor decisión de compra. Nuestro objetivo es ayudarte a ahorrar tiempo y dinero mientras encuentras lo que realmente necesitas.
       </p>
     </div>
   </section>
+
+  <!-- Sección de Valores -->
+  <section class="mt-16 px-6 md:px-12">
+    <h3 class="text-3xl font-semibold text-center text-gray-900">Nuestros Valores</h3>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10 mt-8">
+      <!-- Valor 1 -->
+      <div class="text-center p-6 bg-white rounded-lg shadow-md">
+        <h4 class="text-2xl font-bold text-blue-600">Transparencia</h4>
+        <p class="text-gray-600 mt-4">Creemos en la honestidad total con nuestros usuarios. Todas nuestras recomendaciones están basadas en hechos y pruebas reales.</p>
+      </div>
+      <!-- Valor 2 -->
+      <div class="text-center p-6 bg-white rounded-lg shadow-md">
+        <h4 class="text-2xl font-bold text-blue-600">Compromiso</h4>
+        <p class="text-gray-600 mt-4">Estamos comprometidos en proporcionar las mejores recomendaciones, siempre actualizadas y personalizadas para cada uno de nuestros usuarios.</p>
+      </div>
+      <!-- Valor 3 -->
+      <div class="text-center p-6 bg-white rounded-lg shadow-md">
+        <h4 class="text-2xl font-bold text-blue-600">Innovación</h4>
+        <p class="text-gray-600 mt-4">Siempre buscamos las últimas tendencias y productos innovadores, para que puedas disfrutar de lo mejor del mercado sin complicaciones.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Contacto -->
+  <section class="mt-16 py-10 bg-gray-50">
+    <div class="text-center">
+      <h3 class="text-3xl font-semibold text-gray-900 mb-4">¡Contáctanos!</h3>
+      <p class="text-lg text-gray-700 mb-6">Si tienes alguna pregunta o deseas saber más sobre nuestros productos recomendados, no dudes en contactarnos. ¡Estamos aquí para ayudarte!</p>
+      <a href="/contact" class="bg-blue-600 text-white py-3 px-6 rounded-full hover:bg-blue-700 transition duration-300">Contáctanos ahora</a>
+    </div>
+  </section>
 </Layout>
+
