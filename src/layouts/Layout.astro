@@ -3,7 +3,6 @@ import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
 import Footer from "../components/Footer.astro";
 
-// Definir las propiedades esperadas en el layout
 const { title = "Mi Sitio" } = Astro.props;
 ---
 
@@ -18,13 +17,13 @@ const { title = "Mi Sitio" } = Astro.props;
 
   <title>{title} | Mi Tienda</title>
 </head>
-<body class="bg-gray-50 text-gray-900">
-  
+<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+
   <!-- 🔹 NAVBAR IMPORTADO -->
   <Navbar />
 
   <!-- 🔹 CONTENIDO DINÁMICO -->
-  <main class="container mx-auto p-6">
+  <main class="flex-1 container mx-auto p-6">
     <slot />
   </main>
 
