@@ -1,5 +1,8 @@
 ---
-const categorias = ["belleza", "deporte", "hogar", "moda", "tecnologia"];
+import productosJson from "../data/productos.json";
+
+// Obtener las categorías dinámicamente desde el archivo JSON
+const categorias = Object.keys(productosJson);
 ---
 
 <nav class="bg-white shadow-md">

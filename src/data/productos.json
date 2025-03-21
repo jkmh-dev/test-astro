@@ -1,0 +1,62 @@
+{
+  "belleza": [
+    {
+      "nombre": "Labial Mate",
+      "descripcion": "Colores intensos y de larga duración",
+      "link": "#"
+    },
+    {
+      "nombre": "Crema Hidratante",
+      "descripcion": "Para una piel suave y luminosa",
+      "link": "#"
+    }
+  ],
+  "deporte": [
+    {
+      "nombre": "Zapatillas Deportivas",
+      "descripcion": "Ideales para correr y entrenar",
+      "link": "#"
+    },
+    {
+      "nombre": "Pesas 5kg",
+      "descripcion": "Para fortalecer tus músculos",
+      "link": "#"
+    }
+  ],
+  "hogar": [
+    {
+      "nombre": "Cafetera Automática",
+      "descripcion": "Café perfecto cada mañana",
+      "link": "#"
+    },
+    {
+      "nombre": "Aspiradora Inteligente",
+      "descripcion": "Limpieza sin esfuerzo",
+      "link": "#"
+    }
+  ],
+  "moda": [
+    {
+      "nombre": "Reloj Elegante",
+      "descripcion": "Un accesorio para cualquier ocasión",
+      "link": "#"
+    },
+    {
+      "nombre": "Chaqueta de Cuero",
+      "descripcion": "Estilo y comodidad en un solo producto",
+      "link": "#"
+    }
+  ],
+  "tecnologia": [
+    {
+      "nombre": "Smartphone X",
+      "descripcion": "El último modelo con tecnología avanzada",
+      "link": "#"
+    },
+    {
+      "nombre": "Auriculares Inalámbricos",
+      "descripcion": "Sonido envolvente sin cables",
+      "link": "#"
+    }
+  ]
+}

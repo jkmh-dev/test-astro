@@ -1,73 +1,33 @@
 ---
 import Layout from "../../layouts/Layout.astro";
+import productosJson from "../../data/productos.json";
 
-// 🔹 Definir la interfaz para los productos
+// Definir el tipo para las categorías disponibles
+type Categoria = 'belleza' | 'deporte' | 'hogar' | 'moda' | 'tecnologia';
+
+// Definir la interfaz para los productos
 interface Producto {
   nombre: string;
   descripcion: string;
   link: string;
 }
 
-// 🔹 `getStaticPaths()` para generar las páginas estáticas
+// `getStaticPaths()` para generar las rutas estáticas
 export async function getStaticPaths(): Promise<{ params: { categoria: string } }[]> {
-  // Definir los productos dentro de la función para evitar problemas de scope
-  const productosPorCategoria: Record<string, Producto[]> = {
-    belleza: [
-      { nombre: "Labial Mate", descripcion: "Colores intensos y de larga duración", link: "#" },
-      { nombre: "Crema Hidratante", descripcion: "Para una piel suave y luminosa", link: "#" }
-    ],
-    deporte: [
-      { nombre: "Zapatillas Deportivas", descripcion: "Ideales para correr y entrenar", link: "#" },
-      { nombre: "Pesas 5kg", descripcion: "Para fortalecer tus músculos", link: "#" }
-    ],
-    hogar: [
-      { nombre: "Cafetera Automática", descripcion: "Café perfecto cada mañana", link: "#" },
-      { nombre: "Aspiradora Inteligente", descripcion: "Limpieza sin esfuerzo", link: "#" }
-    ],
-    moda: [
-      { nombre: "Reloj Elegante", descripcion: "Un accesorio para cualquier ocasión", link: "#" },
-      { nombre: "Chaqueta de Cuero", descripcion: "Estilo y comodidad en un solo producto", link: "#" }
-    ],
-    tecnologia: [
-      { nombre: "Smartphone X", descripcion: "El último modelo con tecnología avanzada", link: "#" },
-      { nombre: "Auriculares Inalámbricos", descripcion: "Sonido envolvente sin cables", link: "#" }
-    ]
-  };
+  // Obtener todas las categorías de productos
+  const categorias: Categoria[] = Object.keys(productosJson) as Categoria[]; // Aseguramos que las categorías sean válidas
 
-  return Object.keys(productosPorCategoria).map((categoria) => ({
+  // Devolver las rutas para cada categoría
+  return categorias.map((categoria) => ({
     params: { categoria }
   }));
 }
 
-// 🔹 Obtener el parámetro de la URL
+// Obtener el parámetro de la URL
 const { categoria } = Astro.params as { categoria?: string };
 
-// 🔹 Definir los productos de nuevo en el ámbito correcto
-const productosPorCategoria: Record<string, Producto[]> = {
-  belleza: [
-    { nombre: "Labial Mate", descripcion: "Colores intensos y de larga duración", link: "#" },
-    { nombre: "Crema Hidratante", descripcion: "Para una piel suave y luminosa", link: "#" }
-  ],
-  deporte: [
-    { nombre: "Zapatillas Deportivas", descripcion: "Ideales para correr y entrenar", link: "#" },
-    { nombre: "Pesas 5kg", descripcion: "Para fortalecer tus músculos", link: "#" }
-  ],
-  hogar: [
-    { nombre: "Cafetera Automática", descripcion: "Café perfecto cada mañana", link: "#" },
-    { nombre: "Aspiradora Inteligente", descripcion: "Limpieza sin esfuerzo", link: "#" }
-  ],
-  moda: [
-    { nombre: "Reloj Elegante", descripcion: "Un accesorio para cualquier ocasión", link: "#" },
-    { nombre: "Chaqueta de Cuero", descripcion: "Estilo y comodidad en un solo producto", link: "#" }
-  ],
-  tecnologia: [
-    { nombre: "Smartphone X", descripcion: "El último modelo con tecnología avanzada", link: "#" },
-    { nombre: "Auriculares Inalámbricos", descripcion: "Sonido envolvente sin cables", link: "#" }
-  ]
-};
-
-// 🔹 Asegurar que `categoria` sea una cadena válida
-const productos: Producto[] = categoria && productosPorCategoria[categoria] ? productosPorCategoria[categoria] : [];
+// Asegurarnos de que la categoría sea válida (especificamos que solo puede ser una categoría válida)
+const productos: Producto[] = categoria && productosJson[categoria as Categoria] ? productosJson[categoria as Categoria] : [];
 ---
 
 <Layout>

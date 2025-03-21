@@ -1,14 +1,32 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import productosJson from "../data/productos.json";
 
-// 🔹 Definir las categorías en un solo lugar
-const categorias = [
-  { nombre: "tecnologia", icono: "📱", descripcion: "Los gadgets más innovadores." },
-  { nombre: "hogar", icono: "🏡", descripcion: "Mejora tu espacio con productos esenciales." },
-  { nombre: "deporte", icono: "🏋️‍♂️", descripcion: "Accesorios para un estilo de vida activo." },
-  { nombre: "belleza", icono: "💄", descripcion: "Productos para resaltar tu belleza." },
-  { nombre: "moda", icono: "👗", descripcion: "Tendencias y estilos únicos." }
-];
+// Obtener las categorías dinámicamente desde el archivo JSON
+const categorias = Object.keys(productosJson).map((categoria) => {
+  // Definir un icono y descripción por cada categoría
+  const descripcionPorCategoria: Record<string, string> = {
+    belleza: "Productos para resaltar tu belleza.",
+    deporte: "Accesorios para un estilo de vida activo.",
+    hogar: "Mejora tu espacio con productos esenciales.",
+    moda: "Tendencias y estilos únicos.",
+    tecnologia: "Los gadgets más innovadores."
+  };
+
+  const iconosPorCategoria: Record<string, string> = {
+    belleza: "💄",
+    deporte: "🏋️‍♂️",
+    hogar: "🏡",
+    moda: "👗",
+    tecnologia: "📱"
+  };
+
+  return {
+    nombre: categoria,
+    icono: iconosPorCategoria[categoria] || "📦",  // Icono por defecto si no se encuentra
+    descripcion: descripcionPorCategoria[categoria] || "Descripción no disponible"
+  };
+});
 ---
 
 <Layout title="Inicio">
