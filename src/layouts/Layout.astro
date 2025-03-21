@@ -1,18 +1,31 @@
 ---
 import "../styles/global.css";
 import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+// Definir las propiedades esperadas en el layout
+const { title = "Mi Sitio" } = Astro.props;
 ---
 
+<!DOCTYPE html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mi Sitio con Astro</title>
-  </head>
-  <body class="bg-gray-100 text-gray-900">
-    <Navbar />  <!-- Aquí se carga el Navbar en todas las páginas -->
-    <main class="p-4">
-      <slot />  <!-- Aquí se inyecta el contenido de cada página -->
-    </main>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title} | Mi Tienda</title>
+</head>
+<body class="bg-gray-50 text-gray-900">
+  
+  <!-- 🔹 NAVBAR IMPORTADO -->
+  <Navbar />
+
+  <!-- 🔹 CONTENIDO DINÁMICO -->
+  <main class="container mx-auto p-6">
+    <slot />
+  </main>
+
+  <!-- 🔹 FOOTER IMPORTADO -->
+  <Footer />
+
+</body>
 </html>

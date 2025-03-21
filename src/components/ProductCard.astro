@@ -1,0 +1,9 @@
+---
+const { nombre, imagen, descripcion, link } = Astro.props;
+---
+<div class="bg-white p-4 rounded-lg shadow-md hover:shadow-lg transition">
+  <img src={imagen} alt={nombre} class="w-full h-48 object-cover rounded-md" />
+  <h3 class="text-lg font-semibold text-gray-900 mt-4">{nombre}</h3>
+  <p class="text-gray-600 text-sm">{descripcion}</p>
+  <a href={link} target="_blank" class="block text-blue-600 font-medium mt-2">Ver en Amazon →</a>
+</div>

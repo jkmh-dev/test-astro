@@ -1,0 +1,87 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// 🔹 Definir la interfaz para los productos
+interface Producto {
+  nombre: string;
+  descripcion: string;
+  link: string;
+}
+
+// 🔹 `getStaticPaths()` para generar las páginas estáticas
+export async function getStaticPaths(): Promise<{ params: { categoria: string } }[]> {
+  // Definir los productos dentro de la función para evitar problemas de scope
+  const productosPorCategoria: Record<string, Producto[]> = {
+    belleza: [
+      { nombre: "Labial Mate", descripcion: "Colores intensos y de larga duración", link: "#" },
+      { nombre: "Crema Hidratante", descripcion: "Para una piel suave y luminosa", link: "#" }
+    ],
+    deporte: [
+      { nombre: "Zapatillas Deportivas", descripcion: "Ideales para correr y entrenar", link: "#" },
+      { nombre: "Pesas 5kg", descripcion: "Para fortalecer tus músculos", link: "#" }
+    ],
+    hogar: [
+      { nombre: "Cafetera Automática", descripcion: "Café perfecto cada mañana", link: "#" },
+      { nombre: "Aspiradora Inteligente", descripcion: "Limpieza sin esfuerzo", link: "#" }
+    ],
+    moda: [
+      { nombre: "Reloj Elegante", descripcion: "Un accesorio para cualquier ocasión", link: "#" },
+      { nombre: "Chaqueta de Cuero", descripcion: "Estilo y comodidad en un solo producto", link: "#" }
+    ],
+    tecnologia: [
+      { nombre: "Smartphone X", descripcion: "El último modelo con tecnología avanzada", link: "#" },
+      { nombre: "Auriculares Inalámbricos", descripcion: "Sonido envolvente sin cables", link: "#" }
+    ]
+  };
+
+  return Object.keys(productosPorCategoria).map((categoria) => ({
+    params: { categoria }
+  }));
+}
+
+// 🔹 Obtener el parámetro de la URL
+const { categoria } = Astro.params as { categoria?: string };
+
+// 🔹 Definir los productos de nuevo en el ámbito correcto
+const productosPorCategoria: Record<string, Producto[]> = {
+  belleza: [
+    { nombre: "Labial Mate", descripcion: "Colores intensos y de larga duración", link: "#" },
+    { nombre: "Crema Hidratante", descripcion: "Para una piel suave y luminosa", link: "#" }
+  ],
+  deporte: [
+    { nombre: "Zapatillas Deportivas", descripcion: "Ideales para correr y entrenar", link: "#" },
+    { nombre: "Pesas 5kg", descripcion: "Para fortalecer tus músculos", link: "#" }
+  ],
+  hogar: [
+    { nombre: "Cafetera Automática", descripcion: "Café perfecto cada mañana", link: "#" },
+    { nombre: "Aspiradora Inteligente", descripcion: "Limpieza sin esfuerzo", link: "#" }
+  ],
+  moda: [
+    { nombre: "Reloj Elegante", descripcion: "Un accesorio para cualquier ocasión", link: "#" },
+    { nombre: "Chaqueta de Cuero", descripcion: "Estilo y comodidad en un solo producto", link: "#" }
+  ],
+  tecnologia: [
+    { nombre: "Smartphone X", descripcion: "El último modelo con tecnología avanzada", link: "#" },
+    { nombre: "Auriculares Inalámbricos", descripcion: "Sonido envolvente sin cables", link: "#" }
+  ]
+};
+
+// 🔹 Asegurar que `categoria` sea una cadena válida
+const productos: Producto[] = categoria && productosPorCategoria[categoria] ? productosPorCategoria[categoria] : [];
+---
+
+<Layout>
+  <h1 class="text-3xl font-bold text-center my-6 capitalize">{categoria ?? "Categoría no encontrada"}</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
+    {productos.length > 0
+      ? productos.map((producto) => (
+          <a href={producto.link} class="block bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
+            <h2 class="text-xl font-semibold">{producto.nombre}</h2>
+            <p class="text-gray-600">{producto.descripcion}</p>
+          </a>
+        ))
+      : <p class="text-center text-gray-500">No hay productos en esta categoría.</p>
+    }
+  </div>
+</Layout>

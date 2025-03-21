@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+<Layout title="Contacto">
+  <section class="text-center py-10">
+    <h1 class="text-4xl font-bold text-blue-600">Contáctanos</h1>
+    <p class="text-lg text-gray-600 mt-4">Déjanos tu mensaje y te responderemos pronto.</p>
+  </section>
+
+  <form class="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-md">
+    <label class="block mb-4">
+      <span class="text-gray-700">Nombre</span>
+      <input type="text" class="w-full mt-1 p-2 border rounded-md" placeholder="Tu nombre">
+    </label>
+
+    <label class="block mb-4">
+      <span class="text-gray-700">Correo Electrónico</span>
+      <input type="email" class="w-full mt-1 p-2 border rounded-md" placeholder="tucorreo@example.com">
+    </label>
+
+    <label class="block mb-4">
+      <span class="text-gray-700">Mensaje</span>
+      <textarea class="w-full mt-1 p-2 border rounded-md" rows="4" placeholder="Escribe tu mensaje aquí..."></textarea>
+    </label>
+
+    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+      Enviar
+    </button>
+  </form>
+</Layout>
