@@ -3,6 +3,7 @@ import Layout from "../../../layouts/Layout.astro";
 import productosJson from "../../../data/productos.json";
 import { generarSlug } from "../../../utils/slug"; // 📌 Importamos la función para generar slugs
 
+
 // 📌 Función para generar rutas estáticas
 export async function getStaticPaths() {
   let paths: { params: { categoria: string; producto: string } }[] = [];
@@ -36,38 +37,42 @@ const productoSeleccionado = productos.find(
   <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
     <!-- Imagen del Producto -->
     <div class="w-full md:w-1/2">
-      <img src={productoSeleccionado?.link[1]} alt={productoSeleccionado?.nombre} class="w-full rounded-lg shadow-md" />
+      {categoria === 'Libros' && Array.isArray(productoSeleccionado?.link) ? (
+        <img src={productoSeleccionado.link[0]} alt={productoSeleccionado.nombre} class="w-full rounded-lg shadow-md" />
+      ) : (
+        <img src={Array.isArray(productoSeleccionado?.link) ? productoSeleccionado.link[0] : productoSeleccionado?.link} alt={productoSeleccionado?.nombre} class="w-full rounded-lg shadow-md" />
+      )}
     </div>
 
-    <!-- Detalles del productoSeleccionado -->
+    <!-- Detalles del Producto -->
     <div class="w-full md:w-1/2">
-      <p class="text-sm text-gray-500">Categorías > Velas Coleccionables</p>
+      <p class="text-sm text-gray-500">Categorías &gt; {categoria}</p>
       <h1 class="text-3xl font-bold mt-2">{productoSeleccionado?.nombre}</h1>
-      <p class="text-xl text-red-500 font-semibold mt-1">${productoSeleccionado?.nombre} {productoSeleccionado?.nombre}</p>
 
-      <!-- Selector de Aroma -->
-      <div class="mt-4">
-        <label for="aroma" class="block font-semibold">Aroma</label>
-        <select id="aroma" class="w-full border rounded-md p-2 mt-1">
-          <option>Selecciona Aroma</option>
-          <option>Vainilla</option>
-          <option>Lavanda</option>
-          <option>Canela</option>
-        </select>
-      </div>
+      {categoria === 'Libros' ? (
+        <>
+          <p class="text-xl text-red-500 font-semibold mt-1">
+            Autor: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.autor : 'Información no disponible'}
+          </p>
+          <p class="text-gray-600 mt-1">Editorial: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.editorial : 'Información no disponible'}</p>
+          <p class="text-gray-600">Idioma: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.idioma : 'Información no disponible'}</p>
+          <p class="text-gray-600">Páginas: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.paginas : 'Información no disponible'}</p>
+          <p class="text-gray-600">Formato: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.formato : 'Información no disponible'}</p>
+          <p class="text-gray-600">Publicado: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.publicacion : 'Información no disponible'}</p>
+          <p class="text-gray-600">Género: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.genero : 'Información no disponible'}</p>
+          <p class="text-yellow-500 font-semibold">Valoración: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.valoracion : 'Información no disponible'}/5</p>
+        </>
+      ) : (
+        <>
+          <p class="text-xl text-red-500 font-semibold mt-1">{productoSeleccionado?.descripcion}</p>
+          <a href={Array.isArray(productoSeleccionado?.link) ? productoSeleccionado.link[0] : productoSeleccionado?.link} target="_blank" class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md mt-4">Visitar Producto</a>
+        </>
+      )}
 
-      <!-- Botón -->
-      <button class="w-full bg-gray-300 text-gray-700 font-semibold py-2 px-4 rounded-md mt-4">
-        Selecciona Aroma
-      </button>
-
-      <!-- Stock -->
-      <p class="text-red-600 font-bold mt-2">Quedan solo {productoSeleccionado?.nombre} unidades</p>
-
-      <!-- Descripción -->
+      <!-- Descripción común -->
       <div class="mt-4">
         <h2 class="text-lg font-bold">Descripción</h2>
-        <p class="text-gray-700 mt-2">{productoSeleccionado?.nombre}</p>
+        <p class="text-gray-700 mt-2">{productoSeleccionado?.descripcion}</p>
       </div>
     </div>
   </div>

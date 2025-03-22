@@ -66,15 +66,13 @@
       "precio": 0,
       "moneda": "$",
       "link": ["/images/book/habitos-atomicos-1.0.jpg", "/images/book/habitos-atomicos-2.0.jpg", "/images/book/habitos-atomicos-3.0.jpg"],
-      "stock": 10,
       "descripcion": "Un libro que te enseña cómo mejorar tu vida implementando pequeños hábitos diarios.",
       "editorial": "Paidós",
-      "isbn": "9786077476690",
       "idioma": "Español",
       "paginas": 320,
       "formato": "Tapa blanda",
       "publicacion": "2018-10-16",
-      "genero": ["Desarrollo Personal", "Psicología"],
+      "genero": ["Desarrollo Personal", ", Psicología"],
       "valoracion": 4.8
     },
     {
