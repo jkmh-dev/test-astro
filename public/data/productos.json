@@ -1,0 +1,85 @@
+{
+  "belleza": [
+    {
+      "nombre": "LabialMate",
+      "descripcion": "Colores intensos y de larga duración",
+      "img": "#"
+    },
+    {
+      "nombre": "Crema Hidratante",
+      "descripcion": "Para una piel suave y luminosa",
+      "img": "#"
+    }
+  ],
+  "deporte": [
+    {
+      "nombre": "Zapatillas Deportivas",
+      "descripcion": "Ideales para correr y entrenar",
+      "img": "#"
+    },
+    {
+      "nombre": "Pesas 5kg",
+      "descripcion": "Para fortalecer tus músculos",
+      "img": "https://www.google.com/"
+    }
+  ],
+  "hogar": [
+    {
+      "nombre": "Cafetera Automática",
+      "descripcion": "Café perfecto cada mañana",
+      "img": "#"
+    },
+    {
+      "nombre": "Aspiradora Inteligente",
+      "descripcion": "Limpieza sin esfuerzo",
+      "img": "#"
+    }
+  ],
+  "moda": [
+    {
+      "nombre": "Reloj Elegante",
+      "descripcion": "Un accesorio para cualquier ocasión",
+      "img": "#"
+    },
+    {
+      "nombre": "Chaqueta de Cuero",
+      "descripcion": "Estilo y comodidad en un solo producto",
+      "img": "#"
+    }
+  ],
+  "tecnologia": [
+    {
+      "nombre": "Smartphone X",
+      "descripcion": "El último modelo con tecnología avanzada",
+      "img": "#"
+    },
+    {
+      "nombre": "Auriculares Inalámbricos",
+      "descripcion": "Sonido envolvente sin cables",
+      "img": "#"
+    }
+  ],
+  "Libros": [
+    {
+      "nombre": "Hábitos Atómicos",
+      "autor": "James Clear",
+      "precio": [10.5,15.5],
+      "moneda": "$",
+      "img": ["/images/book/habitos-atomicos-1.0.jpg", "/images/book/habitos-atomicos-2.0.jpg", "/images/book/habitos-atomicos-3.0.jpg"],
+      "link": "https://amzn.to/41Shbst",
+      "descripcion": "Un libro que te enseña cómo mejorar tu vida implementando pequeños hábitos diarios.",
+      "editorial": "Paidós",
+      "idioma": "Español",
+      "paginas": 320,
+      "formato": "Tapa blanda",
+      "publicacion": "2018-10-16",
+      "genero": ["Desarrollo Personal", "Psicología"],
+      "valoracion": 4.8
+    },
+    {
+      "nombre": "Tour por Europa",
+      "descripcion": "Conoce los lugares más emblemáticos",
+      "img": "#"
+    }
+  ]
+}
