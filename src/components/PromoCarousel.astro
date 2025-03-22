@@ -1,0 +1,83 @@
+---
+import Swiper from 'swiper';
+import 'swiper/swiper-bundle.css';
+
+const promociones = [
+  { id: 1, imagen: "/habitos.jpg", titulo: "Producto más vendido 1", descripcion: "Descripción del producto más vendido 1" },
+  { id: 2, imagen: "/test.jpg", titulo: "Producto más vendido 2", descripcion: "Descripción del producto más vendido 2" },
+  { id: 3, imagen: "/baner.jpg", titulo: "Producto más vendido 3", descripcion: "Descripción del producto más vendido 3" },
+  { id: 4, imagen: "/habitos.jpg", titulo: "Producto más vendido 4", descripcion: "Descripción del producto más vendido 4" }
+];
+---
+
+<div class="swiper-container w-full">
+  <div class="swiper-wrapper">
+    {promociones.map((promo) => (
+      <div class="swiper-slide">
+        <img src={promo.imagen} alt={promo.titulo} class="w-full h-96 object-cover" />
+        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-6">
+          <h3 class="text-2xl font-bold">{promo.titulo}</h3>
+          <p class="text-lg">{promo.descripcion}</p>
+        </div>
+      </div>
+    ))}
+  </div>
+  <!-- Paginación -->
+  <div class="swiper-pagination"></div>
+</div>
+
+<script>
+import Swiper from "swiper";
+
+  document.addEventListener('DOMContentLoaded', () => {
+    new Swiper('.swiper-container', {
+      loop: true,
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      slidesPerView: 1, // Mostrar solo un slide a la vez
+      spaceBetween: 0, // Sin espacio entre slides
+      autoplay: {
+        delay: 5000, // Cambiar de slide cada 5 segundos
+      },
+    });
+  });
+</script>
+
+<style>
+  .swiper-container {
+    width: 100%;
+    height: 400px; /* Altura fija para el carrusel */
+    overflow: hidden;
+  }
+
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #fff;
+  }
+
+  .swiper-pagination {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .swiper-pagination-bullet {
+    background: #fff;
+    opacity: 0.5;
+    width: 10px;
+    height: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .swiper-pagination-bullet-active {
+    opacity: 1;
+  }
+</style>
