@@ -4,6 +4,22 @@ import productosJson from "../../../data/productos.json";
 import { generarSlug } from "../../../utils/slug"; // 📌 Importamos la función para generar slugs
 
 
+// Importar componentes específicos
+import LibroDetalles from "../../../components/categorias/LibroDetalles.astro";
+import ProductoGeneral from "../../../components/ProductoGeneral.astro";
+
+
+
+const componentesPorCategoria: Record<string, (_props: Record<string, any>) => any> = {
+  Libros: LibroDetalles,
+  // Si deseas agregar componentes específicos para otras categorías, agrégalos aquí:
+  // belleza: BellezaDetalles,
+  // deporte: DeporteDetalles,
+  // moda: ModaDetalles,
+  // tecnologia: TecnologiaDetalles,
+  // hogar: HogarDetalles,
+};
+
 // 📌 Función para generar rutas estáticas
 export async function getStaticPaths() {
   let paths: { params: { categoria: string; producto: string } }[] = [];
@@ -31,49 +47,39 @@ const productos = categoria && categoria in productosJson
 const productoSeleccionado = productos.find(
   (p) => generarSlug(p.nombre) === producto
 );
+
+// Elegir componente adecuado según categoría
+const ComponenteDetalles = componentesPorCategoria[categoria as string] || ProductoGeneral;
+
 ---
 
 <Layout>
-  <div class="container mx-auto px-4 py-8 flex flex-col md:flex-row gap-8">
-    <!-- Imagen del Producto -->
-    <div class="w-full md:w-1/2">
-      {categoria === 'Libros' && Array.isArray(productoSeleccionado?.link) ? (
-        <img src={productoSeleccionado.link[0]} alt={productoSeleccionado.nombre} class="w-full rounded-lg shadow-md" />
-      ) : (
-        <img src={Array.isArray(productoSeleccionado?.link) ? productoSeleccionado.link[0] : productoSeleccionado?.link} alt={productoSeleccionado?.nombre} class="w-full rounded-lg shadow-md" />
-      )}
-    </div>
+  <div class="container mx-auto px-4 py-10">
+    <div class="flex flex-col md:flex-row gap-8">
 
-    <!-- Detalles del Producto -->
-    <div class="w-full md:w-1/2">
-      <p class="text-sm text-gray-500">Categorías &gt; {categoria}</p>
-      <h1 class="text-3xl font-bold mt-2">{productoSeleccionado?.nombre}</h1>
+      <!-- Imagen del Producto (Optimizada) -->
+<!--       <div class="md:w-1/2 w-full">
+        <img
+          src={Array.isArray(productoSeleccionado?.img) ? productoSeleccionado.img[0] : productoSeleccionado?.img}
+          alt={productoSeleccionado?.nombre}
+          class="w-full h-full max-h-[600px] object-cover rounded-xl shadow-xl"
+        />
+      </div> -->
 
-      {categoria === 'Libros' ? (
-        <>
-          <p class="text-xl text-red-500 font-semibold mt-1">
-            Autor: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.autor : 'Información no disponible'}
-          </p>
-          <p class="text-gray-600 mt-1">Editorial: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.editorial : 'Información no disponible'}</p>
-          <p class="text-gray-600">Idioma: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.idioma : 'Información no disponible'}</p>
-          <p class="text-gray-600">Páginas: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.paginas : 'Información no disponible'}</p>
-          <p class="text-gray-600">Formato: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.formato : 'Información no disponible'}</p>
-          <p class="text-gray-600">Publicado: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.publicacion : 'Información no disponible'}</p>
-          <p class="text-gray-600">Género: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.genero : 'Información no disponible'}</p>
-          <p class="text-yellow-500 font-semibold">Valoración: {productoSeleccionado && 'autor' in productoSeleccionado ? productoSeleccionado.valoracion : 'Información no disponible'}/5</p>
-        </>
-      ) : (
-        <>
-          <p class="text-xl text-red-500 font-semibold mt-1">{productoSeleccionado?.descripcion}</p>
-          <a href={Array.isArray(productoSeleccionado?.link) ? productoSeleccionado.link[0] : productoSeleccionado?.link} target="_blank" class="inline-block bg-blue-500 text-white py-2 px-4 rounded-md mt-4">Visitar Producto</a>
-        </>
-      )}
+      <!-- Detalles dinámicos según categoría -->
+      <div class="md:w-2/3">
+        <p class="text-sm text-gray-500 uppercase">Categoría: {categoria}</p>
+        <h1 class="text-3xl font-bold text-gray-800 mt-2 mb-4">
+          {productoSeleccionado?.nombre}
+        </h1>
 
-      <!-- Descripción común -->
-      <div class="mt-4">
-        <h2 class="text-lg font-bold">Descripción</h2>
-        <p class="text-gray-700 mt-2">{productoSeleccionado?.descripcion}</p>
+        <!-- Aquí se renderiza dinámicamente el componente según categoría -->
+        <ComponenteDetalles producto={productoSeleccionado} />
+
+        <!-- Descripción común para todas las categorías -->
+        </div>
       </div>
+
     </div>
   </div>
 </Layout>

@@ -1,0 +1,16 @@
+---
+const { producto } = Astro.props;
+---
+
+<div class="text-gray-700">
+  <p class="text-xl font-semibold text-red-500">{producto.descripcion}</p>
+  {producto.link && (
+    <a
+      href={Array.isArray(producto.link) ? producto.link[0] : producto.link}
+      target="_blank"
+      class="mt-4 inline-block rounded bg-blue-500 px-4 py-2 font-semibold text-white transition hover:bg-blue-600"
+    >
+      Ver Producto
+    </a>
+  )}
+</div>
