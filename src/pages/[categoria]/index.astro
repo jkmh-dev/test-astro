@@ -1,25 +1,25 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import productosJson from "../../data/productos.json";
+import { generarSlug } from "../../utils/slug"; // 📌 Importamos la función de slug
 
-// Definir la interfaz para los productos
+// 📌 Definir la interfaz para los productos
 interface Producto {
   nombre: string;
   descripcion: string;
-  link: string;
 }
 
-// `getStaticPaths()` para generar las rutas estáticas dinámicamente
-export async function getStaticPaths(): Promise<{ params: { categoria: string } }[]> {
+// 📌 Generar rutas estáticas para categorías
+export async function getStaticPaths() {
   return Object.keys(productosJson).map((categoria) => ({
     params: { categoria }
   }));
 }
 
-// Obtener el parámetro de la URL
+// 📌 Obtener la categoría desde la URL
 const { categoria } = Astro.params as { categoria?: string };
 
-// Verificar que la categoría existe en productosJson antes de acceder a sus datos
+// 📌 Verificar que la categoría existe en productosJson antes de acceder a sus datos
 const productos: Producto[] = categoria && productosJson[categoria as keyof typeof productosJson] 
   ? productosJson[categoria as keyof typeof productosJson] 
   : [];
@@ -30,14 +30,19 @@ const productos: Producto[] = categoria && productosJson[categoria as keyof type
     {categoria ?? "Categoría no encontrada"}
   </h1>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 px-4">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
     {productos.length > 0
-      ? productos.map((producto) => (
-          <a href={producto.link} class="block bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition">
-            <h2 class="text-xl font-semibold">{producto.nombre}</h2>
-            <p class="text-gray-600">{producto.descripcion}</p>
-          </a>
-        ))
+      ? productos.map((producto) => {
+          // 📌 Usar la función `generarSlug()` para crear la URL del producto
+          const slug = generarSlug(producto.nombre);
+
+          return (
+            <a href={`/${categoria}/${slug}`} class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105">
+              <h2 class="text-xl font-semibold">{producto.nombre}</h2>
+              <p class="text-gray-600">{producto.descripcion}</p>
+            </a>
+          );
+        })
       : <p class="text-center text-gray-500">No hay productos en esta categoría.</p>
     }
   </div>
