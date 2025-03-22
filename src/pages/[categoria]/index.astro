@@ -3,12 +3,6 @@ import Layout from "../../layouts/Layout.astro";
 import productosJson from "../../data/productos.json";
 import { generarSlug } from "../../utils/slug"; // 📌 Importamos la función de slug
 
-// 📌 Definir la interfaz para los productos
-interface Producto {
-  nombre: string;
-  descripcion: string;
-}
-
 // 📌 Generar rutas estáticas para categorías
 export async function getStaticPaths() {
   return Object.keys(productosJson).map((categoria) => ({
@@ -20,8 +14,8 @@ export async function getStaticPaths() {
 const { categoria } = Astro.params as { categoria?: string };
 
 // 📌 Verificar que la categoría existe en productosJson antes de acceder a sus datos
-const productos: Producto[] = categoria && productosJson[categoria as keyof typeof productosJson] 
-  ? productosJson[categoria as keyof typeof productosJson] 
+const productos = categoria && categoria in productosJson
+  ? (productosJson[categoria as keyof typeof productosJson] as Array<typeof productosJson[keyof typeof productosJson][number]>)
   : [];
 ---
 
