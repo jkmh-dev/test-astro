@@ -6,14 +6,23 @@ const { producto } = Astro.props;
   <!-- Imágenes -->
   <div class="md:w-1/2 flex flex-col gap-4">
     <div class="w-full h-[400px] overflow-hidden rounded-xl shadow-xl">
-      <img id="imagenPrincipal" src={producto.img[0]} alt={producto.nombre} class="w-full h-full object-cover"/>
+      <img
+        id="imagenPrincipal"
+        src={producto.img[0]}
+        alt={producto.nombre}
+        class="w-full h-full object-cover"
+      />
     </div>
     <div class="flex gap-4 justify-center">
-      {producto.img.map((img) => (
-        <img src={img} alt={producto.nombre}
-          class="miniatura w-16 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-blue-400 transition"
-        />
-      ))}
+      {
+        producto.img.map((img: string) => (
+          <img
+            src={img}
+            alt={producto.nombre}
+            class="miniatura w-16 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-blue-400 transition"
+          />
+        ))
+      }
     </div>
   </div>
 
@@ -25,14 +34,26 @@ const { producto } = Astro.props;
     <p><strong>Idioma:</strong> {producto.idioma}</p>
     <p><strong>Páginas:</strong> {producto.paginas}</p>
     <p><strong>Publicado:</strong> {producto.publicacion}</p>
-    <p><strong>Género:</strong> {producto.genero.join(', ')}</p>
-    <p class="text-yellow-500 font-semibold">⭐ Valoración: {producto.valoracion}/5</p>
+    <p><strong>Género:</strong> {producto.genero.join(", ")}</p>
+    <p class="text-yellow-500 font-semibold">
+      ⭐ Valoración: {producto.valoracion}/5
+    </p>
 
     <!-- Formatos y precio -->
     <div class="space-y-4">
       <div class="flex gap-4">
-        <button id="btnTapaBlanda" data-precio={producto.precio[0]} class="px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white shadow-lg">Tapa blanda</button>
-        <button id="btnTapaDura" data-precio={producto.precio[1]} class="px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-800">Tapa dura</button>
+        <button
+          id="btnTapaBlanda"
+          data-precio={producto.precio[0]}
+          class="px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white shadow-lg"
+          >Tapa blanda</button
+        >
+        <button
+          id="btnTapaDura"
+          data-precio={producto.precio[1]}
+          class="px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-800"
+          >Tapa dura</button
+        >
       </div>
       <div id="precioLibro" class="text-2xl font-bold text-green-600">
         {producto.moneda}{producto.precio[0].toFixed(2)}
@@ -40,12 +61,17 @@ const { producto } = Astro.props;
     </div>
 
     <!-- Comprar -->
-    {producto.link && (
-      <a href={producto.link} target="_blank"
-        class="block bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-center transition">
-        Comprar Ahora
-      </a>
-    )}
+    {
+      producto.link && (
+        <a
+          href={producto.link}
+          target="_blank"
+          class="block bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-center transition"
+        >
+          Comprar Ahora
+        </a>
+      )
+    }
 
     <!-- Descripción -->
     <div>
@@ -57,32 +83,80 @@ const { producto } = Astro.props;
 
 <!-- Script funcional definitivo -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const imagenPrincipal = document.getElementById('imagenPrincipal');
-  const miniaturas = document.querySelectorAll('.miniatura');
-  const btnTapaBlanda = document.getElementById('btnTapaBlanda');
-  const btnTapaDura = document.getElementById('btnTapaDura');
-  const precioLibro = document.getElementById('precioLibro');
-  const moneda = "{producto.moneda}";
+  document.addEventListener("DOMContentLoaded", () => {
+    // Obtener la imagen principal
+    const imagenPrincipal = document.getElementById(
+      "imagenPrincipal"
+    ) as HTMLImageElement | null;
 
-  miniaturas.forEach(mini => {
-    mini.addEventListener('click', () => {
-      imagenPrincipal.setAttribute('src', mini.getAttribute('src'));
-    });
+    // Verificar si la imagen principal existe antes de usarla
+    if (imagenPrincipal) {
+      const miniaturas = document.querySelectorAll(
+        ".miniatura"
+      ) as NodeListOf<HTMLImageElement>;
+
+      // Obtener los botones
+      const btnTapaBlanda = document.getElementById(
+        "btnTapaBlanda"
+      ) as HTMLButtonElement | null;
+      const btnTapaDura = document.getElementById(
+        "btnTapaDura"
+      ) as HTMLButtonElement | null;
+
+      // Obtener el precio del libro
+      const precioLibro = document.getElementById(
+        "precioLibro"
+      ) as HTMLElement | null;
+
+      // Si los elementos no existen, salir de la función
+      if (!btnTapaBlanda || !btnTapaDura || !precioLibro) {
+        console.error("Uno o más elementos no se han encontrado.");
+        return;
+      }
+
+      const moneda: string = "$";
+
+      // Agregar el evento a las miniaturas para cambiar la imagen principal
+      miniaturas.forEach((mini: HTMLImageElement) => {
+        mini.addEventListener("click", () => {
+          if (mini.src) {
+            imagenPrincipal.setAttribute("src", mini.src);
+          }
+        });
+      });
+
+      // Función para actualizar el precio y los estilos de los botones
+      function actualizarPrecio(
+        btnActivo: HTMLButtonElement,
+        btnInactivo: HTMLButtonElement
+      ): void {
+        if (precioLibro) {
+          precioLibro.textContent =
+            moneda + parseFloat(btnActivo.dataset.precio ?? "0").toFixed(2);
+        }
+
+        // Actualizar estilos
+        btnActivo.classList.add("bg-blue-600", "text-white", "shadow-lg");
+        btnActivo.classList.remove("bg-gray-200", "text-gray-800");
+
+        btnInactivo.classList.add("bg-gray-200", "text-gray-800");
+        btnInactivo.classList.remove("bg-blue-600", "text-white", "shadow-lg");
+      }
+
+      // Agregar eventos a los botones de tapa
+      btnTapaBlanda.addEventListener("click", () => {
+        if (btnTapaBlanda && btnTapaDura) {
+          actualizarPrecio(btnTapaBlanda, btnTapaDura);
+        }
+      });
+
+      btnTapaDura.addEventListener("click", () => {
+        if (btnTapaBlanda && btnTapaDura) {
+          actualizarPrecio(btnTapaDura, btnTapaBlanda);
+        }
+      });
+    } else {
+      console.error("La imagen principal no se encontró.");
+    }
   });
-
-  function actualizarPrecio(btnActivo, btnInactivo) {
-    precioLibro.textContent = moneda + parseFloat(btnActivo.dataset.precio).toFixed(2);
-
-    btnActivo.classList.add('bg-blue-600', 'text-white', 'shadow-lg');
-    btnActivo.classList.remove('bg-gray-200', 'text-gray-800');
-
-    btnInactivo.classList.add('bg-gray-200', 'text-gray-800');
-    btnInactivo.classList.remove('bg-blue-600', 'text-white', 'shadow-lg');
-  }
-
-  btnTapaBlanda.addEventListener('click', () => actualizarPrecio(btnTapaBlanda, btnTapaDura));
-  btnTapaDura.addEventListener('click', () => actualizarPrecio(btnTapaDura, btnTapaBlanda));
-});
 </script>
-```

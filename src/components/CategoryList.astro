@@ -1,0 +1,19 @@
+---
+import productosJson from "../data/productos.json";
+
+const categorias = Object.keys(productosJson).map((categoria) => ({
+  nombre: categoria,
+  icono: { belleza: "💄", deporte: "🏋️‍♂️", hogar: "🏡", moda: "👗", tecnologia: "📱" }[categoria] || "📦",
+}));
+---
+
+<div class="flex space-x-4 px-4 flex-wrap">
+  {categorias.map((categoria) => (
+    <a href={`/${categoria.nombre}`} class="flex items-center bg-white rounded-md shadow-sm hover:shadow-md transition transform hover:scale-105 px-4 py-2">
+      <span class="text-lg">{categoria.icono}</span>
+      <h2 class="text-lg font-medium text-gray-900 ml-2">
+        {categoria.nombre.charAt(0).toUpperCase() + categoria.nombre.slice(1)}
+      </h2>
+    </a>
+  ))}
+</div>
