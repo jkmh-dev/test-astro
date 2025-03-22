@@ -1,0 +1,43 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import productosJson from "../../data/productos.json";
+import { generarSlug } from "../../utils/slug"; // 📌 Importamos la función de slug
+
+// 📌 Generar rutas estáticas para categorías
+export async function getStaticPaths() {
+  return Object.keys(productosJson).map((categoria) => ({
+    params: { categoria }
+  }));
+}
+
+// 📌 Obtener la categoría desde la URL
+const { categoria } = Astro.params as { categoria?: string };
+
+// 📌 Verificar que la categoría existe en productosJson antes de acceder a sus datos
+const productos = categoria && categoria in productosJson
+  ? (productosJson[categoria as keyof typeof productosJson] as Array<typeof productosJson[keyof typeof productosJson][number]>)
+  : [];
+---
+
+<Layout>
+  <h1 class="text-3xl font-bold text-center my-6 capitalize">
+    {categoria ?? "Categoría no encontrada"}
+  </h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
+    {productos.length > 0
+      ? productos.map((producto) => {
+          // 📌 Usar la función `generarSlug()` para crear la URL del producto
+          const slug = generarSlug(producto.nombre);
+
+          return (
+            <a href={`/${categoria}/${slug}`} class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105">
+              <h2 class="text-xl font-semibold">{producto.nombre}</h2>
+              <p class="text-gray-600">{producto.descripcion}</p>
+            </a>
+          );
+        })
+      : <p class="text-center text-gray-500">No hay productos en esta categoría.</p>
+    }
+  </div>
+</Layout>
