@@ -11,7 +11,7 @@ const categorias = Object.keys(productosJson).map((categoria) => {
     deporte: "Accesorios para un estilo de vida activo.",
     hogar: "Mejora tu espacio con productos esenciales.",
     moda: "Tendencias y estilos únicos.",
-    tecnologia: "Los gadgets más innovadores."
+    tecnologia: "Los gadgets más innovadores.",
   };
 
   const iconosPorCategoria: Record<string, string> = {
@@ -19,13 +19,14 @@ const categorias = Object.keys(productosJson).map((categoria) => {
     deporte: "🏋️‍♂️",
     hogar: "🏡",
     moda: "👗",
-    tecnologia: "📱"
+    tecnologia: "📱",
   };
 
   return {
     nombre: categoria,
     icono: iconosPorCategoria[categoria] || "📦", // Icono por defecto
-    descripcion: descripcionPorCategoria[categoria] || "Descripción no disponible"
+    descripcion:
+      descripcionPorCategoria[categoria] || "Descripción no disponible",
   };
 });
 ---
@@ -36,11 +37,20 @@ const categorias = Object.keys(productosJson).map((categoria) => {
 
   <!-- Sección de Categorías -->
   <section class="container mx-auto px-4 py-12">
-    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Explora Nuestras Categorías</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {categorias.map((categoria) => (
-        <CategoryCard categoria={categoria} />
-      ))}
+    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
+      Explora Nuestras Categorías
+    </h2>
+
+    <!-- Contenedor de las categorías con scroll vertical -->
+    <div class="flex flex-wrap justify-center items-center space-x-4 space-y-2">
+      {categorias.map((categoria) => <CategoryCard categoria={categoria} />)}
     </div>
+
+    <!-- Contenido de Categorías -->
+    <div id="categoria-contenido" class="categoria-contenido">
+      <p>Selecciona una categoría para ver su contenido.</p>
+    </div>
+
+    
   </section>
 </Layout>
