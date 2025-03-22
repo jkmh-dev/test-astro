@@ -1,6 +1,6 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import productosJson from "../data/productos.json";
+import Layout from "../../layouts/Layout.astro";
+import productosJson from "../../data/productos.json";
 
 // Definir la interfaz para los productos
 interface Producto {
@@ -11,10 +11,7 @@ interface Producto {
 
 // `getStaticPaths()` para generar las rutas estáticas dinámicamente
 export async function getStaticPaths(): Promise<{ params: { categoria: string } }[]> {
-  // Obtener todas las categorías de productos desde el JSON
-  const categorias = Object.keys(productosJson);
-
-  return categorias.map((categoria) => ({
+  return Object.keys(productosJson).map((categoria) => ({
     params: { categoria }
   }));
 }
@@ -22,10 +19,12 @@ export async function getStaticPaths(): Promise<{ params: { categoria: string } 
 // Obtener el parámetro de la URL
 const { categoria } = Astro.params as { categoria?: string };
 
-// Obtener productos dinámicamente según la categoría
-const productos: Producto[] = productosJson[categoria as keyof typeof productosJson] || [];
-
+// Verificar que la categoría existe en productosJson antes de acceder a sus datos
+const productos: Producto[] = categoria && productosJson[categoria as keyof typeof productosJson] 
+  ? productosJson[categoria as keyof typeof productosJson] 
+  : [];
 ---
+
 <Layout>
   <h1 class="text-3xl font-bold text-center my-6 capitalize">
     {categoria ?? "Categoría no encontrada"}
