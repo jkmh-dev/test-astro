@@ -1,107 +1,116 @@
 ---
 const { producto } = Astro.props;
 
-// Asegurar formato de arrays
 const imagenes = Array.isArray(producto.img) ? producto.img : [producto.img];
 const precios = Array.isArray(producto.precio) ? producto.precio : [producto.precio];
 const generos = Array.isArray(producto.genero) ? producto.genero : (producto.genero ? [producto.genero] : []);
 const moneda = producto.moneda ?? "$";
+
+console.log("🖼️ Imágenes:", imagenes);
+console.log("💵 Precios:", precios);
+console.log("🛒 Producto completo:", producto);
 ---
 
-<div class="flex flex-col md:flex-row gap-8 text-gray-700">
-  <!-- Imágenes -->
-  <div class="md:w-1/2 flex flex-col gap-4">
-    <div class="w-full h-[400px] overflow-hidden rounded-xl shadow-xl">
-      <img
-        id="imagenPrincipal"
-        src={imagenes[0]}
-        alt={producto.nombre}
-        class="w-full h-full object-cover"
-      />
-    </div>
-    {imagenes.length > 1 && (
-      <div class="flex gap-4 justify-center">
-        {
-          imagenes.map((img, i) => (
+
+<div class="container mx-auto px-4 py-10">
+  <div class="flex flex-col md:flex-row gap-8">
+    <!-- Imágenes -->
+    <div class="md:w-1/2 flex flex-col gap-4">
+      <div class="w-full h-[400px] overflow-hidden rounded-xl shadow-xl">
+        <img
+          id="imagenPrincipal"
+          src={imagenes[0]}
+          alt={producto.nombre}
+          class="w-full h-full object-cover"
+        />
+      </div>
+      {imagenes.length > 1 && (
+        <div class="flex gap-4 justify-center">
+          {imagenes.map((img, i) => (
             <img
               src={img}
               alt={`${producto.nombre} ${i + 1}`}
               class="miniatura w-16 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-blue-400 transition"
             />
-          ))
-        }
-      </div>
-    )}
-  </div>
-
-  <!-- Detalles del producto -->
-  <div class="md:w-1/2 space-y-4">
-    <h2 class="text-3xl font-bold">{producto.nombre}</h2>
-    {producto.autor && <p><strong>Autor:</strong> {producto.autor}</p>}
-    {producto.editorial && <p><strong>Editorial:</strong> {producto.editorial}</p>}
-    {producto.idioma && <p><strong>Idioma:</strong> {producto.idioma}</p>}
-    {producto.paginas && <p><strong>Páginas:</strong> {producto.paginas}</p>}
-    {producto.publicacion && <p><strong>Publicado:</strong> {producto.publicacion}</p>}
-    {generos.length > 0 && (
-      <p><strong>Género:</strong> {generos.join(", ")}</p>
-    )}
-    {producto.valoracion && (
-      <p class="text-yellow-500 font-semibold">
-        ⭐ Valoración: {producto.valoracion}/5
-      </p>
-    )}
-
-    <!-- Precio y formatos -->
-    <div class="space-y-4">
-      {precios.length > 1 ? (
-        <>
-          <div class="flex gap-4">
-            <button
-              id="btnTapaBlanda"
-              data-precio={precios[0]}
-              class="px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white shadow-lg"
-            >
-              Tapa blanda
-            </button>
-            <button
-              id="btnTapaDura"
-              data-precio={precios[1]}
-              class="px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-800"
-            >
-              Tapa dura
-            </button>
-          </div>
-          <div id="precioLibro" class="text-2xl font-bold text-green-600">
-            {moneda}{precios[0].toFixed(2)}
-          </div>
-        </>
-      ) : (
-        <div class="text-2xl font-bold text-green-600">
-          {moneda}{precios[0]?.toFixed(2)}
+          ))}
         </div>
       )}
     </div>
 
-    <!-- Comprar -->
-    {producto.link && (
-      <a
-        href={Array.isArray(producto.link) ? producto.link[0] : producto.link}
-        target="_blank"
-        class="block bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-center transition"
-      >
-        Comprar Ahora
-      </a>
-    )}
+    <!-- Detalles -->
+    <div class="md:w-2/3 space-y-4">
+      <p class="text-sm text-gray-500 uppercase">Categoría: Libros</p>
 
-    <!-- Descripción -->
-    <div>
-      <h3 class="text-xl font-semibold">Descripción</h3>
-      <p class="text-gray-700 mt-2 leading-relaxed">{producto.descripcion}</p>
+      <h1 class="text-3xl font-bold text-gray-800 mt-2 mb-4">
+        {producto.nombre}
+      </h1>
+
+      {producto.autor && <p><strong>Autor:</strong> {producto.autor}</p>}
+      {producto.editorial && <p><strong>Editorial:</strong> {producto.editorial}</p>}
+      {producto.idioma && <p><strong>Idioma:</strong> {producto.idioma}</p>}
+      {producto.paginas && <p><strong>Páginas:</strong> {producto.paginas}</p>}
+      {producto.publicacion && <p><strong>Publicado:</strong> {producto.publicacion}</p>}
+      {generos.length > 0 && (
+        <p><strong>Género:</strong> {generos.join(", ")}</p>
+      )}
+      {producto.valoracion && (
+        <p class="text-yellow-500 font-semibold">
+          ⭐ Valoración: {producto.valoracion}/5
+        </p>
+      )}
+
+      <!-- Precio y formatos -->
+      <div class="space-y-4">
+        {precios.length > 1 ? (
+          <>
+            <div class="flex gap-4">
+              <button
+                id="btnTapaBlanda"
+                data-precio={precios[0]}
+                class="px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white shadow-lg"
+              >
+                Tapa blanda
+              </button>
+              <button
+                id="btnTapaDura"
+                data-precio={precios[1]}
+                class="px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-800"
+              >
+                Tapa dura
+              </button>
+            </div>
+            <div id="precioLibro" class="text-2xl font-bold text-green-600">
+              {moneda}{precios[0].toFixed(2)}
+            </div>
+          </>
+        ) : (
+          <div id="precioLibro" class="text-2xl font-bold text-green-600">
+            {moneda}{precios[0]?.toFixed(2)}
+          </div>
+        )}
+      </div>
+
+      <!-- Comprar -->
+      {producto.link && (
+        <a
+          href={Array.isArray(producto.link) ? producto.link[0] : producto.link}
+          target="_blank"
+          class="block bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-center transition"
+        >
+          Comprar Ahora
+        </a>
+      )}
+
+      <!-- Descripción -->
+      <div>
+        <h3 class="text-xl font-semibold">Descripción</h3>
+        <p class="text-gray-700 mt-2 leading-relaxed">{producto.descripcion}</p>
+      </div>
     </div>
   </div>
 </div>
 
-<!-- Script funcional sin TypeScript -->
+<!-- Script funcional -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const imagenPrincipal = document.getElementById("imagenPrincipal");
@@ -110,20 +119,31 @@ const moneda = producto.moneda ?? "$";
     const btnTapaDura = document.getElementById("btnTapaDura");
     const precioLibro = document.getElementById("precioLibro");
 
-    if (!imagenPrincipal || !precioLibro) return;
+    console.log("📌 Miniaturas encontradas:", miniaturas.length);
+    console.log("📌 Botón tapa blanda:", btnTapaBlanda);
+    console.log("📌 Botón tapa dura:", btnTapaDura);
+    console.log("📌 Precio div:", precioLibro);
 
-    // Cambiar imagen principal al hacer clic en una miniatura
+    if (!imagenPrincipal || !precioLibro) {
+      console.warn("⚠️ No se encontró imagenPrincipal o precioLibro.");
+      return;
+    }
+
+    // Cambiar imagen principal
     miniaturas.forEach((mini) => {
+      console.log("🖼️ Miniatura:", mini.src);
       mini.addEventListener("click", () => {
         imagenPrincipal.src = mini.src;
+        console.log("✅ Imagen principal actualizada a:", mini.src);
       });
     });
 
-    // Cambiar el precio al seleccionar tapa
+    // Cambiar precio
     function actualizarPrecio(btnActivo, btnInactivo) {
       const precio = btnActivo.dataset.precio;
       if (precio) {
         precioLibro.textContent = "$" + parseFloat(precio).toFixed(2);
+        console.log("💰 Precio actualizado:", precioLibro.textContent);
       }
 
       btnActivo.classList.add("bg-blue-600", "text-white", "shadow-lg");
@@ -140,6 +160,8 @@ const moneda = producto.moneda ?? "$";
       btnTapaDura.addEventListener("click", () =>
         actualizarPrecio(btnTapaDura, btnTapaBlanda)
       );
+    } else {
+      console.warn("⚠️ Botones de tapa no encontrados o faltan precios.");
     }
   });
 </script>

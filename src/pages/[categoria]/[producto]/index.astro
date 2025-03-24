@@ -31,24 +31,29 @@ export async function getStaticPaths() {
 
 // 📌 Obtener la categoría y el producto desde la URL
 const { categoria, producto } = Astro.params;
+console.log("📦 URL Params → Categoria:", categoria, "| Producto:", producto);
 
 // 📌 Buscar categoría en el array
 const categoriaData = categorias.find(
   (c) => c.nombre.toLowerCase() === categoria
 );
+console.log("📂 Categoría encontrada:", categoriaData);
 
 // 📌 Obtener el producto correspondiente comparando slugs
 const productoSeleccionado = categoriaData?.productos.find(
   (p) => generarSlug(p.nombre) === producto
 );
+console.log("📘 Producto seleccionado:", productoSeleccionado);
 
 // 📌 Seleccionar componente adecuado solo si hay producto
 const tieneComponenteEspecifico =
-  categoriaData?.nombre && categoriaData.nombre in componentesPorCategoria;
+  categoriaData?.nombre && categoriaData.nombre.toLowerCase() in componentesPorCategoria;
+
+console.log("🧩 ¿Tiene componente específico?:", tieneComponenteEspecifico);
 
 const ComponenteDetalles = productoSeleccionado
   ? (tieneComponenteEspecifico
-      ? componentesPorCategoria[categoriaData!.nombre]
+      ? componentesPorCategoria[categoriaData!.nombre.toLowerCase()]
       : ProductoGeneral)
   : null;
 
@@ -57,7 +62,9 @@ const imagenPrincipal = productoSeleccionado?.img
   ? Array.isArray(productoSeleccionado.img)
     ? productoSeleccionado.img[0]
     : productoSeleccionado.img
-  : "/images/default.jpg"; // Imagen por defecto
+  : "/images/default.jpg";
+
+console.log("🖼️ Imagen principal:", imagenPrincipal);
 ---
 
 <Layout>
