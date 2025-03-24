@@ -6,16 +6,16 @@ import { generarSlug } from "../../utils/slug";
 // 📌 Generar rutas estáticas para categorías
 export async function getStaticPaths() {
   return categorias.map((categoria) => ({
-    params: { categoria: categoria.nombre.toLowerCase() },
+    params: { categoria: generarSlug(categoria.nombre) },
   }));
 }
 
 // 📌 Obtener la categoría desde la URL
 const { categoria } = Astro.params as { categoria?: string };
 
-// 📌 Buscar la categoría en el array
+// 📌 Buscar la categoría real usando slug generado
 const categoriaData = categorias.find(
-  (c) => c.nombre.toLowerCase() === categoria
+  (c) => generarSlug(c.nombre) === categoria
 );
 
 // 📌 Extraer productos (o arreglo vacío si no se encuentra)
