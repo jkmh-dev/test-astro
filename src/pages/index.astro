@@ -1,56 +1,13 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import PromoCarousel from "../components/PromoCarousel.astro";
-import CategoryCard from "../components/CategoryCard.astro";
-import productosJson from "../data/productos.json";
-
-// Obtener las categorías dinámicamente desde el archivo JSON
-const categorias = Object.keys(productosJson).map((categoria) => {
-  const descripcionPorCategoria: Record<string, string> = {
-    belleza: "Productos para resaltar tu belleza.",
-    deporte: "Accesorios para un estilo de vida activo.",
-    hogar: "Mejora tu espacio con productos esenciales.",
-    moda: "Tendencias y estilos únicos.",
-    tecnologia: "Los gadgets más innovadores.",
-  };
-
-  const iconosPorCategoria: Record<string, string> = {
-    belleza: "💄",
-    deporte: "🏋️‍♂️",
-    hogar: "🏡",
-    moda: "👗",
-    tecnologia: "📱",
-  };
-
-  return {
-    nombre: categoria,
-    icono: iconosPorCategoria[categoria] || "📦", // Icono por defecto
-    descripcion:
-      descripcionPorCategoria[categoria] || "Descripción no disponible",
-  };
-});
+import Layout from "@/layouts/Layout.astro";
+import PromoCarousel from "@/components/PromoCarousel.astro";
+import CategoryPanel from "@/components/CategoryPanel.astro";
 ---
 
 <Layout title="Inicio">
-  <!-- Carrusel de Promociones (Ocupa todo el ancho de la pantalla) -->
+  <!-- Carrusel de Promociones -->
   <PromoCarousel />
 
-  <!-- Sección de Categorías -->
-  <section class="container mx-auto px-4 py-12">
-    <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">
-      Explora Nuestras Categorías
-    </h2>
-
-    <!-- Contenedor de las categorías con scroll vertical -->
-    <div class="flex flex-wrap justify-center items-center space-x-4 space-y-2">
-      {categorias.map((categoria) => <CategoryCard categoria={categoria} />)}
-    </div>
-
-    <!-- Contenido de Categorías -->
-    <div id="categoria-contenido" class="categoria-contenido">
-      <p>Selecciona una categoría para ver su contenido.</p>
-    </div>
-
-    
-  </section>
+  <!-- Sección productos por Categorías -->
+  <CategoryPanel />
 </Layout>

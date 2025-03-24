@@ -1,0 +1,45 @@
+{
+  "nombre": "Deporte",
+  "productos": [
+    {
+      "nombre": "Balón de fútbol",
+      "descripcion": "Tamaño oficial para partidos",
+      "img": "/images/deporte/balon-futbol.jpg",
+      "precio": 24.99,
+      "marca": "Adidas",
+      "talla": "5"
+    },
+    {
+      "nombre": "Pesas de mano 5kg",
+      "descripcion": "Ideales para entrenamiento en casa",
+      "img": "/images/deporte/pesas.jpg",
+      "precio": 19.5,
+      "marca": "Domyos",
+      "peso": "5 kg"
+    },
+    {
+      "nombre": "Mancuernas ajustables",
+      "descripcion": "Entrena con diferentes pesos en un solo equipo",
+      "img": "/images/deporte/mancuernas-ajustables.jpg",
+      "precio": 89.99,
+      "marca": "Bowflex",
+      "rangoPeso": "2 a 24 kg"
+    },
+    {
+      "nombre": "Esterilla de yoga antideslizante",
+      "descripcion": "Con textura que evita deslizamientos",
+      "img": "/images/deporte/esterilla-yoga.jpg",
+      "precio": 17.99,
+      "marca": "Reebok",
+      "grosor": "6 mm"
+    },
+    {
+      "nombre": "Zapatillas deportivas",
+      "descripcion": "Ligeras y cómodas para correr",
+      "img": "/images/deporte/zapatillas-running.jpg",
+      "precio": 59.95,
+      "marca": "Nike",
+      "talla": "42"
+    }
+  ]
+}

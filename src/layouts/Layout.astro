@@ -1,34 +1,32 @@
 ---
-import "../styles/global.css";
-import Navbar from "../components/Navbar.astro";
-import Footer from "../components/Footer.astro";
+import "@/styles/global.css";
+import Navbar from "@/components/Navbar.astro";
+import Footer from "@/components/Footer.astro";
 
 const { title = "Mi Sitio" } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Favicon -->
-  <link rel="icon" href="/store.png" type="image/x-icon" />
+    <!-- Favicon -->
+    <link rel="icon" href="/store.png" type="image/x-icon" />
 
-  <title>{title} | Mi Tienda</title>
-</head>
-<body class="bg-gray-50 text-gray-900 flex flex-col min-h-screen">
+    <title>{title} | Mi Tienda</title>
+  </head>
+  <body>
+    <!-- 🔹 NAVBAR IMPORTADO -->
+    <Navbar />
 
-  <!-- 🔹 NAVBAR IMPORTADO -->
-  <Navbar />
+    <!-- 🔹 CONTENIDO DINÁMICO -->
+    <main>
+      <slot />
+    </main>
 
-  <!-- 🔹 CONTENIDO DINÁMICO -->
-  <main class="flex-1 container mx-auto p-6">
-    <slot />
-  </main>
-
-  <!-- 🔹 FOOTER IMPORTADO -->
-  <Footer />
-
-</body>
+    <!-- 🔹 FOOTER IMPORTADO -->
+    <Footer />
+  </body>
 </html>

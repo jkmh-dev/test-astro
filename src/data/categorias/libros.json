@@ -1,0 +1,50 @@
+{
+  "nombre": "Libros",
+  "productos": [
+    {
+      "nombre": "Hábitos Atómicos",
+      "descripcion": "Cómo cambiar hábitos pequeños para resultados extraordinarios",
+      "img": "/images/libros/habitos-atomicos.jpg",
+      "autor": "James Clear",
+      "precio": 15.5,
+      "editorial": "Paidós",
+      "paginas": 320
+    },
+    {
+      "nombre": "El poder del ahora",
+      "descripcion": "Guía espiritual para vivir el presente",
+      "img": "/images/libros/el-poder-del-ahora.jpg",
+      "autor": "Eckhart Tolle",
+      "precio": 14.0,
+      "editorial": "Grijalbo",
+      "paginas": 236
+    },
+    {
+      "nombre": "1984",
+      "descripcion": "Distopía clásica sobre un régimen totalitario",
+      "img": "/images/libros/1984.jpg",
+      "autor": "George Orwell",
+      "precio": 13.25,
+      "editorial": "Debolsillo",
+      "paginas": 352
+    },
+    {
+      "nombre": "Cien años de soledad",
+      "descripcion": "Obra maestra del realismo mágico",
+      "img": "/images/libros/cien-anos-de-soledad.jpg",
+      "autor": "Gabriel García Márquez",
+      "precio": 18.75,
+      "editorial": "Sudamericana",
+      "paginas": 432
+    },
+    {
+      "nombre": "Sapiens: De animales a dioses",
+      "descripcion": "Breve historia de la humanidad",
+      "img": "/images/libros/sapiens.jpg",
+      "autor": "Yuval Noah Harari",
+      "precio": 16.0,
+      "editorial": "Debate",
+      "paginas": 496
+    }
+  ]
+}

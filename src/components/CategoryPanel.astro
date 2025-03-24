@@ -1,0 +1,91 @@
+---
+import { categorias } from "@/data/categorias";
+
+// Extraer los nombres de las categorías
+const Categorias = categorias.map((c) => c.nombre);
+---
+
+<ul class="flex flex-wrap justify-center gap-4">
+  {
+    Categorias.map((nombre) => (
+      <li>
+        <a
+          href="#"
+          class="block px-4 py-2 categoria-btn"
+          data-categoria={nombre}
+        >
+          {nombre}
+        </a>
+      </li>
+    ))
+  }
+</ul>
+
+<div id="categoria-contenido" class="flex flex-wrap"></div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const contenedor = document.getElementById("categoria-contenido") as HTMLElement;
+
+    fetch("/data/productos.json")
+      .then((res) => res.json())
+      .then((categorias) => {
+        const botones = document.querySelectorAll(".categoria-btn");
+
+        botones.forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            const nombreCategoria = btn.getAttribute("data-categoria") || "";
+            const categoria = categorias.find(
+              (c: any) => c.nombre === nombreCategoria
+            );
+
+            contenedor.innerHTML = "";
+
+            if (categoria && Array.isArray(categoria.productos)) {
+              categoria.productos.forEach((producto: any) => {
+                const slug = generarSlug(producto.nombre);
+                const link = document.createElement("a");
+                link.href = `/${nombreCategoria.toLowerCase()}/${slug}`;
+                link.className =
+                  "block w-60 p-4 border border-gray-300 rounded hover:shadow-md transition";
+
+                link.innerHTML = `
+                  <h3 class="text-lg font-semibold mb-1">${producto.nombre}</h3>
+                  <p class="text-sm text-gray-600 mb-2">${producto.descripcion}</p>
+                  <p class="text-sm font-medium text-green-600">Precio: $${producto.precio}</p>
+                `;
+
+                contenedor.appendChild(link);
+              });
+            } else {
+              contenedor.textContent = "No hay productos en esta categoría.";
+            }
+          });
+        });
+
+        // Mostrar la primera categoría automáticamente
+        const primera = categorias[0];
+        if (primera) {
+          const primerBtn = document.querySelector(
+            `[data-categoria="${primera.nombre}"]`
+          ) as HTMLAnchorElement;
+          primerBtn?.click();
+        }
+
+        // Función para generar slug
+        function generarSlug(texto: string) {
+          return texto
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "") // Quitar tildes
+            .replace(/[^\w\s-]/g, "") // Quitar símbolos
+            .trim()
+            .replace(/\s+/g, "-"); // Espacios por guiones
+        }
+      })
+      .catch((err) => {
+        console.error("Error al cargar productos:", err);
+      });
+  });
+</script>

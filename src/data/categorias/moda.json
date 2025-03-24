@@ -1,0 +1,45 @@
+{
+  "nombre": "Moda",
+  "productos": [
+    {
+      "nombre": "Camisa de lino blanca",
+      "descripcion": "Fresca y elegante para días cálidos",
+      "img": "/images/moda/camisa-lino.jpg",
+      "precio": 29.99,
+      "talla": "M",
+      "marca": "Zara"
+    },
+    {
+      "nombre": "Pantalón cargo",
+      "descripcion": "Moderno y funcional con bolsillos laterales",
+      "img": "/images/moda/pantalon-cargo.jpg",
+      "precio": 39.5,
+      "talla": "L",
+      "marca": "H&M"
+    },
+    {
+      "nombre": "Zapatillas urbanas",
+      "descripcion": "Estilo casual con gran comodidad",
+      "img": "/images/moda/zapatillas-urbanas.jpg",
+      "precio": 54.99,
+      "talla": "42",
+      "marca": "Converse"
+    },
+    {
+      "nombre": "Vestido largo floral",
+      "descripcion": "Ideal para eventos formales o casuales",
+      "img": "/images/moda/vestido-floral.jpg",
+      "precio": 45.0,
+      "talla": "S",
+      "marca": "Mango"
+    },
+    {
+      "nombre": "Chaqueta denim",
+      "descripcion": "Clásico atemporal para cualquier outfit",
+      "img": "/images/moda/chaqueta-denim.jpg",
+      "precio": 59.95,
+      "talla": "M",
+      "marca": "Levi’s"
+    }
+  ]
+}

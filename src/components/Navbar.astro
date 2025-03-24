@@ -1,8 +1,5 @@
 ---
-import productosJson from "../data/productos.json";
-
-// Obtener las categorías dinámicamente desde el archivo JSON
-const categorias = Object.keys(productosJson);
+import { categorias } from "@/data/categorias";
 ---
 
 <nav class="bg-white shadow-md">
@@ -14,8 +11,8 @@ const categorias = Object.keys(productosJson);
       
       {categorias.map((categoria) => (
         <li>
-          <a href={`/${categoria}`} class="text-gray-700 hover:text-blue-600 capitalize">
-            {categoria}
+          <a href={`/${categoria.nombre}`} class="text-gray-700 hover:text-blue-600 capitalize">
+            {categoria.nombre}
           </a>
         </li>
       ))}

@@ -1,0 +1,45 @@
+{
+  "nombre": "Belleza",
+  "productos": [
+    {
+      "nombre": "Crema hidratante facial",
+      "descripcion": "Hidrata profundamente la piel seca",
+      "img": "/images/belleza/crema-hidratante.jpg",
+      "precio": 14.99,
+      "marca": "Nivea",
+      "tipo": "Cuidado facial"
+    },
+    {
+      "nombre": "Labial rojo mate",
+      "descripcion": "Color intenso de larga duración",
+      "img": "/images/belleza/labial-rojo.jpg",
+      "precio": 9.5,
+      "marca": "Maybelline",
+      "tono": "Rojo pasión"
+    },
+    {
+      "nombre": "Shampoo anticaída",
+      "descripcion": "Fortalece el cabello y reduce la caída",
+      "img": "/images/belleza/shampoo-anticaida.jpg",
+      "precio": 7.8,
+      "marca": "Pantene",
+      "contenido": "400 ml"
+    },
+    {
+      "nombre": "Esmalte de uñas nude",
+      "descripcion": "Acabado profesional en segundos",
+      "img": "/images/belleza/esmalte-nude.jpg",
+      "precio": 4.99,
+      "marca": "Essie",
+      "tono": "Natural beige"
+    },
+    {
+      "nombre": "Mascarilla facial de arcilla",
+      "descripcion": "Limpieza profunda de poros",
+      "img": "/images/belleza/mascarilla-arcilla.jpg",
+      "precio": 6.25,
+      "marca": "L’Oréal",
+      "tipo": "Purificante"
+    }
+  ]
+}

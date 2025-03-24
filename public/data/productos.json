@@ -1,85 +1,277 @@
-{
-  "belleza": [
-    {
-      "nombre": "LabialMate",
-      "descripcion": "Colores intensos y de larga duración",
-      "img": "#"
-    },
-    {
-      "nombre": "Crema Hidratante",
-      "descripcion": "Para una piel suave y luminosa",
-      "img": "#"
-    }
-  ],
-  "deporte": [
-    {
-      "nombre": "Zapatillas Deportivas",
-      "descripcion": "Ideales para correr y entrenar",
-      "img": "#"
-    },
-    {
-      "nombre": "Pesas 5kg",
-      "descripcion": "Para fortalecer tus músculos",
-      "img": "https://www.google.com/"
-    }
-  ],
-  "hogar": [
-    {
-      "nombre": "Cafetera Automática",
-      "descripcion": "Café perfecto cada mañana",
-      "img": "#"
-    },
-    {
-      "nombre": "Aspiradora Inteligente",
-      "descripcion": "Limpieza sin esfuerzo",
-      "img": "#"
-    }
-  ],
-  "moda": [
-    {
-      "nombre": "Reloj Elegante",
-      "descripcion": "Un accesorio para cualquier ocasión",
-      "img": "#"
-    },
-    {
-      "nombre": "Chaqueta de Cuero",
-      "descripcion": "Estilo y comodidad en un solo producto",
-      "img": "#"
-    }
-  ],
-  "tecnologia": [
-    {
-      "nombre": "Smartphone X",
-      "descripcion": "El último modelo con tecnología avanzada",
-      "img": "#"
-    },
-    {
-      "nombre": "Auriculares Inalámbricos",
-      "descripcion": "Sonido envolvente sin cables",
-      "img": "#"
-    }
-  ],
-  "Libros": [
-    {
-      "nombre": "Hábitos Atómicos",
-      "autor": "James Clear",
-      "precio": [10.5,15.5],
-      "moneda": "$",
-      "img": ["/images/book/habitos-atomicos-1.0.jpg", "/images/book/habitos-atomicos-2.0.jpg", "/images/book/habitos-atomicos-3.0.jpg"],
-      "link": "https://amzn.to/41Shbst",
-      "descripcion": "Un libro que te enseña cómo mejorar tu vida implementando pequeños hábitos diarios.",
-      "editorial": "Paidós",
-      "idioma": "Español",
-      "paginas": 320,
-      "formato": "Tapa blanda",
-      "publicacion": "2018-10-16",
-      "genero": ["Desarrollo Personal", "Psicología"],
-      "valoracion": 4.8
-    },
-    {
-      "nombre": "Tour por Europa",
-      "descripcion": "Conoce los lugares más emblemáticos",
-      "img": "#"
-    }
-  ]
-}
+[
+  {
+    "nombre": "Belleza",
+    "productos": [
+      {
+        "nombre": "Crema hidratante facial",
+        "descripcion": "Hidrata profundamente la piel seca",
+        "img": "/images/belleza/crema-hidratante.jpg",
+        "precio": 14.99,
+        "marca": "Nivea",
+        "tipo": "Cuidado facial"
+      },
+      {
+        "nombre": "Labial rojo mate",
+        "descripcion": "Color intenso de larga duración",
+        "img": "/images/belleza/labial-rojo.jpg",
+        "precio": 9.5,
+        "marca": "Maybelline",
+        "tono": "Rojo pasión"
+      },
+      {
+        "nombre": "Shampoo anticaída",
+        "descripcion": "Fortalece el cabello y reduce la caída",
+        "img": "/images/belleza/shampoo-anticaida.jpg",
+        "precio": 7.8,
+        "marca": "Pantene",
+        "contenido": "400 ml"
+      },
+      {
+        "nombre": "Esmalte de uñas nude",
+        "descripcion": "Acabado profesional en segundos",
+        "img": "/images/belleza/esmalte-nude.jpg",
+        "precio": 4.99,
+        "marca": "Essie",
+        "tono": "Natural beige"
+      },
+      {
+        "nombre": "Mascarilla facial de arcilla",
+        "descripcion": "Limpieza profunda de poros",
+        "img": "/images/belleza/mascarilla-arcilla.jpg",
+        "precio": 6.25,
+        "marca": "L’Oréal",
+        "tipo": "Purificante"
+      }
+    ]
+  },
+  {
+    "nombre": "Deporte",
+    "productos": [
+      {
+        "nombre": "Balón de fútbol",
+        "descripcion": "Tamaño oficial para partidos",
+        "img": "/images/deporte/balon-futbol.jpg",
+        "precio": 24.99,
+        "marca": "Adidas",
+        "talla": "5"
+      },
+      {
+        "nombre": "Pesas de mano 5kg",
+        "descripcion": "Ideales para entrenamiento en casa",
+        "img": "/images/deporte/pesas.jpg",
+        "precio": 19.5,
+        "marca": "Domyos",
+        "peso": "5 kg"
+      },
+      {
+        "nombre": "Mancuernas ajustables",
+        "descripcion": "Entrena con diferentes pesos en un solo equipo",
+        "img": "/images/deporte/mancuernas-ajustables.jpg",
+        "precio": 89.99,
+        "marca": "Bowflex",
+        "rangoPeso": "2 a 24 kg"
+      },
+      {
+        "nombre": "Esterilla de yoga antideslizante",
+        "descripcion": "Con textura que evita deslizamientos",
+        "img": "/images/deporte/esterilla-yoga.jpg",
+        "precio": 17.99,
+        "marca": "Reebok",
+        "grosor": "6 mm"
+      },
+      {
+        "nombre": "Zapatillas deportivas",
+        "descripcion": "Ligeras y cómodas para correr",
+        "img": "/images/deporte/zapatillas-running.jpg",
+        "precio": 59.95,
+        "marca": "Nike",
+        "talla": "42"
+      }
+    ]
+  },
+  {
+    "nombre": "Hogar",
+    "productos": [
+      {
+        "nombre": "Set de sábanas 100% algodón",
+        "descripcion": "Juego de 4 piezas suaves y transpirables",
+        "img": "/images/hogar/sabanas-algodon.jpg",
+        "precio": 34.99,
+        "tamaño": "Queen",
+        "color": "Gris claro"
+      },
+      {
+        "nombre": "Lámpara de mesa LED",
+        "descripcion": "Moderna con intensidad ajustable",
+        "img": "/images/hogar/lampara-led.jpg",
+        "precio": 22.5,
+        "material": "Metal y vidrio",
+        "luz": "Cálida"
+      },
+      {
+        "nombre": "Cafetera de cápsulas",
+        "descripcion": "Compacta y fácil de usar",
+        "img": "/images/hogar/cafetera.jpg",
+        "precio": 49.99,
+        "marca": "Nespresso",
+        "capacidad": "0.7 L"
+      },
+      {
+        "nombre": "Almohadas viscoelásticas",
+        "descripcion": "Soporte cervical ergonómico",
+        "img": "/images/hogar/almohadas.jpg",
+        "precio": 27.95,
+        "cantidad": 2,
+        "tamaño": "Estándar"
+      },
+      {
+        "nombre": "Organizador de cocina extensible",
+        "descripcion": "Ahorra espacio en gabinetes y repisas",
+        "img": "/images/hogar/organizador-cocina.jpg",
+        "precio": 14.75,
+        "material": "Acero inoxidable",
+        "dimensiones": "40-60 cm"
+      }
+    ]
+  },
+  {
+    "nombre": "Libros",
+    "productos": [
+      {
+        "nombre": "Hábitos Atómicos",
+        "descripcion": "Cómo cambiar hábitos pequeños para resultados extraordinarios",
+        "img": "/images/libros/habitos-atomicos.jpg",
+        "autor": "James Clear",
+        "precio": 15.5,
+        "editorial": "Paidós",
+        "paginas": 320
+      },
+      {
+        "nombre": "El poder del ahora",
+        "descripcion": "Guía espiritual para vivir el presente",
+        "img": "/images/libros/el-poder-del-ahora.jpg",
+        "autor": "Eckhart Tolle",
+        "precio": 14.0,
+        "editorial": "Grijalbo",
+        "paginas": 236
+      },
+      {
+        "nombre": "1984",
+        "descripcion": "Distopía clásica sobre un régimen totalitario",
+        "img": "/images/libros/1984.jpg",
+        "autor": "George Orwell",
+        "precio": 13.25,
+        "editorial": "Debolsillo",
+        "paginas": 352
+      },
+      {
+        "nombre": "Cien años de soledad",
+        "descripcion": "Obra maestra del realismo mágico",
+        "img": "/images/libros/cien-anos-de-soledad.jpg",
+        "autor": "Gabriel García Márquez",
+        "precio": 18.75,
+        "editorial": "Sudamericana",
+        "paginas": 432
+      },
+      {
+        "nombre": "Sapiens: De animales a dioses",
+        "descripcion": "Breve historia de la humanidad",
+        "img": "/images/libros/sapiens.jpg",
+        "autor": "Yuval Noah Harari",
+        "precio": 16.0,
+        "editorial": "Debate",
+        "paginas": 496
+      }
+    ]
+  },
+  {
+    "nombre": "Moda",
+    "productos": [
+      {
+        "nombre": "Camisa de lino blanca",
+        "descripcion": "Fresca y elegante para días cálidos",
+        "img": "/images/moda/camisa-lino.jpg",
+        "precio": 29.99,
+        "talla": "M",
+        "marca": "Zara"
+      },
+      {
+        "nombre": "Pantalón cargo",
+        "descripcion": "Moderno y funcional con bolsillos laterales",
+        "img": "/images/moda/pantalon-cargo.jpg",
+        "precio": 39.5,
+        "talla": "L",
+        "marca": "H&M"
+      },
+      {
+        "nombre": "Zapatillas urbanas",
+        "descripcion": "Estilo casual con gran comodidad",
+        "img": "/images/moda/zapatillas-urbanas.jpg",
+        "precio": 54.99,
+        "talla": "42",
+        "marca": "Converse"
+      },
+      {
+        "nombre": "Vestido largo floral",
+        "descripcion": "Ideal para eventos formales o casuales",
+        "img": "/images/moda/vestido-floral.jpg",
+        "precio": 45.0,
+        "talla": "S",
+        "marca": "Mango"
+      },
+      {
+        "nombre": "Chaqueta denim",
+        "descripcion": "Clásico atemporal para cualquier outfit",
+        "img": "/images/moda/chaqueta-denim.jpg",
+        "precio": 59.95,
+        "talla": "M",
+        "marca": "Levi’s"
+      }
+    ]
+  },
+  {
+    "nombre": "Tecnología",
+    "productos": [
+      {
+        "nombre": "Smartphone 128GB",
+        "descripcion": "Pantalla OLED de 6.1\" y cámara de 48MP",
+        "img": "/images/tecnologia/smartphone.jpg",
+        "precio": 699.99,
+        "marca": "Samsung",
+        "modelo": "Galaxy S22"
+      },
+      {
+        "nombre": "Auriculares inalámbricos",
+        "descripcion": "Cancelación activa de ruido y sonido envolvente",
+        "img": "/images/tecnologia/auriculares.jpg",
+        "precio": 149.0,
+        "marca": "Sony",
+        "modelo": "WH-1000XM5"
+      },
+      {
+        "nombre": "Laptop ultraligera",
+        "descripcion": "Ideal para trabajo y estudio, con batería de 12h",
+        "img": "/images/tecnologia/laptop.jpg",
+        "precio": 899.5,
+        "marca": "Asus",
+        "modelo": "ZenBook 14"
+      },
+      {
+        "nombre": "Smartwatch deportivo",
+        "descripcion": "Monitoreo de salud y GPS integrado",
+        "img": "/images/tecnologia/smartwatch.jpg",
+        "precio": 199.0,
+        "marca": "Garmin",
+        "modelo": "Venu 2"
+      },
+      {
+        "nombre": "Altavoz inteligente",
+        "descripcion": "Control por voz y sonido 360°",
+        "img": "/images/tecnologia/altavoz.jpg",
+        "precio": 59.9,
+        "marca": "Amazon",
+        "modelo": "Echo Dot 5"
+      }
+    ]
+  }
+]

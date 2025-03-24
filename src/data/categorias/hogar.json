@@ -1,0 +1,45 @@
+{
+  "nombre": "Hogar",
+  "productos": [
+    {
+      "nombre": "Set de sábanas 100% algodón",
+      "descripcion": "Juego de 4 piezas suaves y transpirables",
+      "img": "/images/hogar/sabanas-algodon.jpg",
+      "precio": 34.99,
+      "tamaño": "Queen",
+      "color": "Gris claro"
+    },
+    {
+      "nombre": "Lámpara de mesa LED",
+      "descripcion": "Moderna con intensidad ajustable",
+      "img": "/images/hogar/lampara-led.jpg",
+      "precio": 22.5,
+      "material": "Metal y vidrio",
+      "luz": "Cálida"
+    },
+    {
+      "nombre": "Cafetera de cápsulas",
+      "descripcion": "Compacta y fácil de usar",
+      "img": "/images/hogar/cafetera.jpg",
+      "precio": 49.99,
+      "marca": "Nespresso",
+      "capacidad": "0.7 L"
+    },
+    {
+      "nombre": "Almohadas viscoelásticas",
+      "descripcion": "Soporte cervical ergonómico",
+      "img": "/images/hogar/almohadas.jpg",
+      "precio": 27.95,
+      "cantidad": 2,
+      "tamaño": "Estándar"
+    },
+    {
+      "nombre": "Organizador de cocina extensible",
+      "descripcion": "Ahorra espacio en gabinetes y repisas",
+      "img": "/images/hogar/organizador-cocina.jpg",
+      "precio": 14.75,
+      "material": "Acero inoxidable",
+      "dimensiones": "40-60 cm"
+    }
+  ]
+}
