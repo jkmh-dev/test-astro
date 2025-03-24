@@ -7,7 +7,8 @@
       "img": "/images/tecnologia/smartphone.jpg",
       "precio": 699.99,
       "marca": "Samsung",
-      "modelo": "Galaxy S22"
+      "modelo": "Galaxy S22",
+      "link": ""
     },
     {
       "nombre": "Auriculares inalámbricos",
@@ -15,7 +16,8 @@
       "img": "/images/tecnologia/auriculares.jpg",
       "precio": 149.0,
       "marca": "Sony",
-      "modelo": "WH-1000XM5"
+      "modelo": "WH-1000XM5",
+      "link": ""
     },
     {
       "nombre": "Laptop ultraligera",
@@ -23,7 +25,8 @@
       "img": "/images/tecnologia/laptop.jpg",
       "precio": 899.5,
       "marca": "Asus",
-      "modelo": "ZenBook 14"
+      "modelo": "ZenBook 14",
+      "link": ""
     },
     {
       "nombre": "Smartwatch deportivo",
@@ -31,7 +34,8 @@
       "img": "/images/tecnologia/smartwatch.jpg",
       "precio": 199.0,
       "marca": "Garmin",
-      "modelo": "Venu 2"
+      "modelo": "Venu 2",
+      "link": ""
     },
     {
       "nombre": "Altavoz inteligente",
@@ -39,7 +43,8 @@
       "img": "/images/tecnologia/altavoz.jpg",
       "precio": 59.9,
       "marca": "Amazon",
-      "modelo": "Echo Dot 5"
+      "modelo": "Echo Dot 5",
+      "link": ""
     }
   ]
 }

@@ -11,20 +11,21 @@ const promociones = [
   { id: 4, imagen: "/images/book/habitos-atomicos-1.0.jpg", titulo: "Producto más vendido 4", descripcion: "Descripción del producto más vendido 4" }
 ];
 ---
-
-<div class="swiper w-full h-96 overflow-hidden relative">
-  <div class="swiper-wrapper">
-    {promociones.map((promo) => (
-      <div class="swiper-slide flex justify-center items-center text-center bg-white">
-        <img src={promo.imagen} alt={promo.titulo} class="w-full h-96 object-cover" />
-        <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-6">
-          <h3 class="text-2xl font-bold">{promo.titulo}</h3>
-          <p class="text-lg">{promo.descripcion}</p>
+<div class="">
+  <div class="swiper w-full h-96 overflow-hidden relative">
+    <div class="swiper-wrapper">
+      {promociones.map((promo) => (
+        <div class="swiper-slide flex justify-center items-center text-center bg-white">
+          <img src={promo.imagen} alt={promo.titulo} class="w-full h-96 object-cover" />
+          <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-6">
+            <h3 class="text-2xl font-bold">{promo.titulo}</h3>
+            <p class="text-lg">{promo.descripcion}</p>
+          </div>
         </div>
-      </div>
-    ))}
+      ))}
+    </div>
+    <div class="swiper-pagination absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"></div>
   </div>
-  <div class="swiper-pagination absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2"></div>
 </div>
 
 <script>
