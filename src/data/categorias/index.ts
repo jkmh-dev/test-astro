@@ -5,4 +5,4 @@ import libros from './libros.json';
 import moda from './moda.json';
 import tecnologia from './tecnologia.json';
 
-export const categorias = [belleza, deporte, hogar, libros, moda, tecnologia];
+export const categorias = [libros,tecnologia];
