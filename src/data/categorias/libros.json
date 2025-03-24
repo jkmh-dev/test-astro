@@ -4,7 +4,7 @@
     {
       "nombre": "Hábitos Atómicos",
       "autor": "James Clear",
-      "precio": [10.5, 15.5],
+      "precio": [10.5, 15.6],
       "moneda": "$",
       "img": [
         "/images/book/habitos-atomicos-1.0.jpg",
@@ -16,7 +16,7 @@
       "editorial": "Paidós",
       "idioma": "Español",
       "paginas": 320,
-      "formato": "Tapa blanda",
+      "formato":["Tapa blanda","Tapa dura"],
       "publicacion": "2018-10-16",
       "genero": ["Desarrollo Personal", "Psicología"],
       "valoracion": 4.8
