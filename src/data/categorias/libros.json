@@ -24,45 +24,51 @@
       "valoracion": 4.8
     },
     {
-      "nombre": "El poder del ahora",
-      "autor": "Eckhart Tolle",
+      "nombre": "Si lo crees, lo creas",
+      "autor": "Brian Tracy",
       "moneda": "$",
       "formatos": [
-        { "nombre": "Tapa dura", "precio": 14.0 }
+        { "nombre": "Kindle", "precio": 11.99 },
+        { "nombre": "Audiolibro (con membresía)", "precio": 0.99 },
+        { "nombre": "Pasta blanda", "precio": 12.52 },
+        { "nombre": "Libro de bolsillo", "precio": 12.57 }
       ],
       "img": [
-        "/images/libros/el-poder-del-ahora-1.jpg",
-        "/images/libros/el-poder-del-ahora-2.jpg"
+        "/images/book/si-lo-crees-lo-creas-1.0.jpg",
+        "/images/book/si-lo-crees-lo-creas-2.0.jpg",
+        "/images/book/si-lo-crees-lo-creas-3.0.jpeg"
       ],
-      "link": "https://amzn.to/3ZAbNow",
-      "descripcion": "Guía espiritual para vivir el presente y alcanzar la iluminación.",
-      "editorial": "Grijalbo",
+      "link": "https://amzn.to/4kT6Mp3",
+      "descripcion": "Elimina tus dudas, cambia tus creencias y suelta el pasado para alcanzar todo tu potencial. Una guía práctica para superar la negatividad y liberar tu verdadero poder.",
+      "editorial": "B de Bolsillo",
       "idioma": "Español",
-      "paginas": 236,
-      "publicacion": "1997-01-01",
-      "genero": ["Espiritualidad", "Autoayuda"],
-      "valoracion": 4.6
+      "paginas": 264,
+      "publicacion": "2019-04-09",
+      "genero": ["Autoayuda", "Éxito", "Motivación"],
+      "valoracion": 4.8
     },
     {
-      "nombre": "1984",
-      "autor": "George Orwell",
+      "nombre": "Psicología Oscura",
+      "autor": "Fabián Goleman",
       "moneda": "$",
       "formatos": [
-        { "nombre": "Tapa blanda", "precio": 9.99 },
-        { "nombre": "Tapa dura", "precio": 13.25 }
+        { "nombre": "Kindle", "precio": 6.95 },
+        { "nombre": "Pasta blanda", "precio": 16.38 },
+        { "nombre": "Usado - Bueno", "precio": 14.74 }
       ],
       "img": [
-        "/images/libros/1984-1.jpg",
-        "/images/libros/1984-2.jpg"
+        "/images/book/psicologia-oscura-1.0.jpg",
+        "/images/book/psicologia-oscura-2.0.jpg",
+        "/images/book/psicologia-oscura-3.0.webp"
       ],
-      "link": "https://amzn.to/3YTpEKp",
-      "descripcion": "Una distopía clásica sobre el control totalitario y la vigilancia extrema.",
-      "editorial": "Debolsillo",
+      "link": "https://amzn.to/psicologia-oscura",
+      "descripcion": "Descubre técnicas prohibidas y métodos de manipulación usados por las personas más persuasivas. Un enfoque sin filtros sobre el control mental, la comunicación y el poder psicológico.",
+      "editorial": "Autoeditado",
       "idioma": "Español",
-      "paginas": 352,
-      "publicacion": "1949-06-08",
-      "genero": ["Ficción política", "Ciencia ficción"],
-      "valoracion": 4.9
+      "paginas": 124,
+      "publicacion": "2022-12-09",
+      "genero": ["Psicología", "Psicología Oscura", "Manipulación"],
+      "valoracion": 4.7
     },
     {
       "nombre": "Cien años de soledad",
