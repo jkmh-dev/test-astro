@@ -159,7 +159,7 @@ const formatos = Array.isArray(producto.formatos) ? producto.formatos : [];
     const imagenPrincipal = document.getElementById(
       "imagenPrincipal"
     ) as HTMLImageElement | null;
-    const miniaturas = document.querySelectorAll(".miniatura");
+    const miniaturas = document.querySelectorAll(".miniatura") as NodeListOf<HTMLImageElement>;
     const botonesFormato = document.querySelectorAll(".btn-formato") as NodeListOf<HTMLButtonElement>;
     const precioLibro = document.getElementById("precioLibro");
 
@@ -167,7 +167,7 @@ const formatos = Array.isArray(producto.formatos) ? producto.formatos : [];
     miniaturas.forEach((mini) => {
       mini.addEventListener("click", () => {
         if (imagenPrincipal) {
-          imagenPrincipal.src = "nueva-imagen.jpg"; // ✅ Solo se usa si existe
+          imagenPrincipal.src = mini.src;
         }
       });
     });
