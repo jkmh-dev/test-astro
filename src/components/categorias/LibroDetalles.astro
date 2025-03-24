@@ -1,5 +1,11 @@
 ---
 const { producto } = Astro.props;
+
+// Asegurar formato de arrays
+const imagenes = Array.isArray(producto.img) ? producto.img : [producto.img];
+const precios = Array.isArray(producto.precio) ? producto.precio : [producto.precio];
+const generos = Array.isArray(producto.genero) ? producto.genero : (producto.genero ? [producto.genero] : []);
+const moneda = producto.moneda ?? "$";
 ---
 
 <div class="flex flex-col md:flex-row gap-8 text-gray-700">
@@ -8,70 +14,84 @@ const { producto } = Astro.props;
     <div class="w-full h-[400px] overflow-hidden rounded-xl shadow-xl">
       <img
         id="imagenPrincipal"
-        src={producto.img[0]}
+        src={imagenes[0]}
         alt={producto.nombre}
         class="w-full h-full object-cover"
       />
     </div>
-    <div class="flex gap-4 justify-center">
-      {
-        producto.img.map((img: string) => (
-          <img
-            src={img}
-            alt={producto.nombre}
-            class="miniatura w-16 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-blue-400 transition"
-          />
-        ))
-      }
-    </div>
+    {imagenes.length > 1 && (
+      <div class="flex gap-4 justify-center">
+        {
+          imagenes.map((img, i) => (
+            <img
+              src={img}
+              alt={`${producto.nombre} ${i + 1}`}
+              class="miniatura w-16 h-20 object-cover rounded cursor-pointer border-2 border-transparent hover:border-blue-400 transition"
+            />
+          ))
+        }
+      </div>
+    )}
   </div>
 
   <!-- Detalles del producto -->
   <div class="md:w-1/2 space-y-4">
     <h2 class="text-3xl font-bold">{producto.nombre}</h2>
-    <p><strong>Autor:</strong> {producto.autor}</p>
-    <p><strong>Editorial:</strong> {producto.editorial}</p>
-    <p><strong>Idioma:</strong> {producto.idioma}</p>
-    <p><strong>Páginas:</strong> {producto.paginas}</p>
-    <p><strong>Publicado:</strong> {producto.publicacion}</p>
-    <p><strong>Género:</strong> {producto.genero.join(", ")}</p>
-    <p class="text-yellow-500 font-semibold">
-      ⭐ Valoración: {producto.valoracion}/5
-    </p>
+    {producto.autor && <p><strong>Autor:</strong> {producto.autor}</p>}
+    {producto.editorial && <p><strong>Editorial:</strong> {producto.editorial}</p>}
+    {producto.idioma && <p><strong>Idioma:</strong> {producto.idioma}</p>}
+    {producto.paginas && <p><strong>Páginas:</strong> {producto.paginas}</p>}
+    {producto.publicacion && <p><strong>Publicado:</strong> {producto.publicacion}</p>}
+    {generos.length > 0 && (
+      <p><strong>Género:</strong> {generos.join(", ")}</p>
+    )}
+    {producto.valoracion && (
+      <p class="text-yellow-500 font-semibold">
+        ⭐ Valoración: {producto.valoracion}/5
+      </p>
+    )}
 
-    <!-- Formatos y precio -->
+    <!-- Precio y formatos -->
     <div class="space-y-4">
-      <div class="flex gap-4">
-        <button
-          id="btnTapaBlanda"
-          data-precio={producto.precio[0]}
-          class="px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white shadow-lg"
-          >Tapa blanda</button
-        >
-        <button
-          id="btnTapaDura"
-          data-precio={producto.precio[1]}
-          class="px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-800"
-          >Tapa dura</button
-        >
-      </div>
-      <div id="precioLibro" class="text-2xl font-bold text-green-600">
-        {producto.moneda}{producto.precio[0].toFixed(2)}
-      </div>
+      {precios.length > 1 ? (
+        <>
+          <div class="flex gap-4">
+            <button
+              id="btnTapaBlanda"
+              data-precio={precios[0]}
+              class="px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white shadow-lg"
+            >
+              Tapa blanda
+            </button>
+            <button
+              id="btnTapaDura"
+              data-precio={precios[1]}
+              class="px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-800"
+            >
+              Tapa dura
+            </button>
+          </div>
+          <div id="precioLibro" class="text-2xl font-bold text-green-600">
+            {moneda}{precios[0].toFixed(2)}
+          </div>
+        </>
+      ) : (
+        <div class="text-2xl font-bold text-green-600">
+          {moneda}{precios[0]?.toFixed(2)}
+        </div>
+      )}
     </div>
 
     <!-- Comprar -->
-    {
-      producto.link && (
-        <a
-          href={producto.link}
-          target="_blank"
-          class="block bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-center transition"
-        >
-          Comprar Ahora
-        </a>
-      )
-    }
+    {producto.link && (
+      <a
+        href={Array.isArray(producto.link) ? producto.link[0] : producto.link}
+        target="_blank"
+        class="block bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg font-bold text-center transition"
+      >
+        Comprar Ahora
+      </a>
+    )}
 
     <!-- Descripción -->
     <div>
@@ -81,82 +101,45 @@ const { producto } = Astro.props;
   </div>
 </div>
 
-<!-- Script funcional definitivo -->
+<!-- Script funcional sin TypeScript -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // Obtener la imagen principal
-    const imagenPrincipal = document.getElementById(
-      "imagenPrincipal"
-    ) as HTMLImageElement | null;
+    const imagenPrincipal = document.getElementById("imagenPrincipal");
+    const miniaturas = document.querySelectorAll(".miniatura");
+    const btnTapaBlanda = document.getElementById("btnTapaBlanda");
+    const btnTapaDura = document.getElementById("btnTapaDura");
+    const precioLibro = document.getElementById("precioLibro");
 
-    // Verificar si la imagen principal existe antes de usarla
-    if (imagenPrincipal) {
-      const miniaturas = document.querySelectorAll(
-        ".miniatura"
-      ) as NodeListOf<HTMLImageElement>;
+    if (!imagenPrincipal || !precioLibro) return;
 
-      // Obtener los botones
-      const btnTapaBlanda = document.getElementById(
-        "btnTapaBlanda"
-      ) as HTMLButtonElement | null;
-      const btnTapaDura = document.getElementById(
-        "btnTapaDura"
-      ) as HTMLButtonElement | null;
+    // Cambiar imagen principal al hacer clic en una miniatura
+    miniaturas.forEach((mini) => {
+      mini.addEventListener("click", () => {
+        imagenPrincipal.src = mini.src;
+      });
+    });
 
-      // Obtener el precio del libro
-      const precioLibro = document.getElementById(
-        "precioLibro"
-      ) as HTMLElement | null;
-
-      // Si los elementos no existen, salir de la función
-      if (!btnTapaBlanda || !btnTapaDura || !precioLibro) {
-        console.error("Uno o más elementos no se han encontrado.");
-        return;
+    // Cambiar el precio al seleccionar tapa
+    function actualizarPrecio(btnActivo, btnInactivo) {
+      const precio = btnActivo.dataset.precio;
+      if (precio) {
+        precioLibro.textContent = "$" + parseFloat(precio).toFixed(2);
       }
 
-      const moneda: string = "$";
+      btnActivo.classList.add("bg-blue-600", "text-white", "shadow-lg");
+      btnActivo.classList.remove("bg-gray-200", "text-gray-800");
 
-      // Agregar el evento a las miniaturas para cambiar la imagen principal
-      miniaturas.forEach((mini: HTMLImageElement) => {
-        mini.addEventListener("click", () => {
-          if (mini.src) {
-            imagenPrincipal.setAttribute("src", mini.src);
-          }
-        });
-      });
+      btnInactivo.classList.add("bg-gray-200", "text-gray-800");
+      btnInactivo.classList.remove("bg-blue-600", "text-white", "shadow-lg");
+    }
 
-      // Función para actualizar el precio y los estilos de los botones
-      function actualizarPrecio(
-        btnActivo: HTMLButtonElement,
-        btnInactivo: HTMLButtonElement
-      ): void {
-        if (precioLibro) {
-          precioLibro.textContent =
-            moneda + parseFloat(btnActivo.dataset.precio ?? "0").toFixed(2);
-        }
-
-        // Actualizar estilos
-        btnActivo.classList.add("bg-blue-600", "text-white", "shadow-lg");
-        btnActivo.classList.remove("bg-gray-200", "text-gray-800");
-
-        btnInactivo.classList.add("bg-gray-200", "text-gray-800");
-        btnInactivo.classList.remove("bg-blue-600", "text-white", "shadow-lg");
-      }
-
-      // Agregar eventos a los botones de tapa
-      btnTapaBlanda.addEventListener("click", () => {
-        if (btnTapaBlanda && btnTapaDura) {
-          actualizarPrecio(btnTapaBlanda, btnTapaDura);
-        }
-      });
-
-      btnTapaDura.addEventListener("click", () => {
-        if (btnTapaBlanda && btnTapaDura) {
-          actualizarPrecio(btnTapaDura, btnTapaBlanda);
-        }
-      });
-    } else {
-      console.error("La imagen principal no se encontró.");
+    if (btnTapaBlanda && btnTapaDura) {
+      btnTapaBlanda.addEventListener("click", () =>
+        actualizarPrecio(btnTapaBlanda, btnTapaDura)
+      );
+      btnTapaDura.addEventListener("click", () =>
+        actualizarPrecio(btnTapaDura, btnTapaBlanda)
+      );
     }
   });
 </script>

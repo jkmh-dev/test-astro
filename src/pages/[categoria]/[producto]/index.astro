@@ -9,8 +9,8 @@ import ProductoGeneral from "../../../components/ProductoGeneral.astro";
 
 // Relación categoría → componente
 const componentesPorCategoria: Record<string, (_props: Record<string, any>) => any> = {
-  Libros: LibroDetalles,
-  // Puedes añadir más aquí según tus necesidades
+  libros: LibroDetalles,
+  // Puedes añadir más componentes aquí si los tienes
 };
 
 // 📌 Función para generar rutas estáticas
@@ -42,21 +42,33 @@ const productoSeleccionado = categoriaData?.productos.find(
   (p) => generarSlug(p.nombre) === producto
 );
 
-// 📌 Seleccionar componente adecuado
-const ComponenteDetalles =
-  componentesPorCategoria[categoriaData?.nombre || ""] || ProductoGeneral;
+// 📌 Seleccionar componente adecuado solo si hay producto
+const tieneComponenteEspecifico =
+  categoriaData?.nombre && categoriaData.nombre in componentesPorCategoria;
+
+const ComponenteDetalles = productoSeleccionado
+  ? (tieneComponenteEspecifico
+      ? componentesPorCategoria[categoriaData!.nombre]
+      : ProductoGeneral)
+  : null;
+
+// ✅ Imagen principal segura
+const imagenPrincipal = productoSeleccionado?.img
+  ? Array.isArray(productoSeleccionado.img)
+    ? productoSeleccionado.img[0]
+    : productoSeleccionado.img
+  : "/images/default.jpg"; // Imagen por defecto
 ---
 
 <Layout>
   <div class="container mx-auto px-4 py-10">
     <div class="flex flex-col md:flex-row gap-8">
-
-      {productoSeleccionado ? (
+      {productoSeleccionado && ComponenteDetalles ? (
         <>
           <!-- Imagen del producto -->
           <div class="md:w-1/2 w-full">
             <img
-              src={productoSeleccionado.img}
+              src={imagenPrincipal}
               alt={productoSeleccionado.nombre}
               class="w-full h-full max-h-[600px] object-cover rounded-xl shadow-xl"
             />
@@ -64,12 +76,14 @@ const ComponenteDetalles =
 
           <!-- Detalles dinámicos según categoría -->
           <div class="md:w-2/3">
-            <p class="text-sm text-gray-500 uppercase">Categoría: {categoriaData?.nombre}</p>
+            <p class="text-sm text-gray-500 uppercase">
+              Categoría: {categoriaData?.nombre}
+            </p>
             <h1 class="text-3xl font-bold text-gray-800 mt-2 mb-4">
               {productoSeleccionado.nombre}
             </h1>
 
-            <!-- Componente específico o general -->
+            <!-- Componente dinámico -->
             <ComponenteDetalles producto={productoSeleccionado} />
           </div>
         </>

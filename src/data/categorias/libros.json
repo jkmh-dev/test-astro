@@ -3,48 +3,99 @@
   "productos": [
     {
       "nombre": "Hábitos Atómicos",
-      "descripcion": "Cómo cambiar hábitos pequeños para resultados extraordinarios",
-      "img": "/images/libros/habitos-atomicos.jpg",
       "autor": "James Clear",
-      "precio": 15.5,
+      "precio": [10.5, 15.5],
+      "moneda": "$",
+      "img": [
+        "/images/book/habitos-atomicos-1.0.jpg",
+        "/images/book/habitos-atomicos-2.0.jpg",
+        "/images/book/habitos-atomicos-3.0.jpg"
+      ],
+      "link": "https://amzn.to/41Shbst",
+      "descripcion": "Un libro que te enseña cómo mejorar tu vida implementando pequeños hábitos diarios.",
       "editorial": "Paidós",
-      "paginas": 320
+      "idioma": "Español",
+      "paginas": 320,
+      "formato": "Tapa blanda",
+      "publicacion": "2018-10-16",
+      "genero": ["Desarrollo Personal", "Psicología"],
+      "valoracion": 4.8
     },
     {
       "nombre": "El poder del ahora",
-      "descripcion": "Guía espiritual para vivir el presente",
-      "img": "/images/libros/el-poder-del-ahora.jpg",
       "autor": "Eckhart Tolle",
-      "precio": 14.0,
+      "precio": [11.0, 14.0],
+      "moneda": "$",
+      "img": [
+        "/images/libros/el-poder-del-ahora-1.jpg",
+        "/images/libros/el-poder-del-ahora-2.jpg"
+      ],
+      "link": "https://amzn.to/3ZAbNow",
+      "descripcion": "Guía espiritual para vivir el presente y alcanzar la iluminación.",
       "editorial": "Grijalbo",
-      "paginas": 236
+      "idioma": "Español",
+      "paginas": 236,
+      "formato": "Tapa dura",
+      "publicacion": "1997-01-01",
+      "genero": ["Espiritualidad", "Autoayuda"],
+      "valoracion": 4.6
     },
     {
       "nombre": "1984",
-      "descripcion": "Distopía clásica sobre un régimen totalitario",
-      "img": "/images/libros/1984.jpg",
       "autor": "George Orwell",
-      "precio": 13.25,
+      "precio": [9.99, 13.25],
+      "moneda": "$",
+      "img": [
+        "/images/libros/1984-1.jpg",
+        "/images/libros/1984-2.jpg"
+      ],
+      "link": "https://amzn.to/3YTpEKp",
+      "descripcion": "Una distopía clásica sobre el control totalitario y la vigilancia extrema.",
       "editorial": "Debolsillo",
-      "paginas": 352
+      "idioma": "Español",
+      "paginas": 352,
+      "formato": "Tapa blanda",
+      "publicacion": "1949-06-08",
+      "genero": ["Ficción política", "Ciencia ficción"],
+      "valoracion": 4.9
     },
     {
       "nombre": "Cien años de soledad",
-      "descripcion": "Obra maestra del realismo mágico",
-      "img": "/images/libros/cien-anos-de-soledad.jpg",
       "autor": "Gabriel García Márquez",
-      "precio": 18.75,
+      "precio": [12.0, 18.75],
+      "moneda": "$",
+      "img": [
+        "/images/libros/cien-anos-de-soledad-1.jpg",
+        "/images/libros/cien-anos-de-soledad-2.jpg"
+      ],
+      "link": "https://amzn.to/3wQuZVz",
+      "descripcion": "Obra maestra del realismo mágico que narra la historia de la familia Buendía.",
       "editorial": "Sudamericana",
-      "paginas": 432
+      "idioma": "Español",
+      "paginas": 432,
+      "formato": "Tapa dura",
+      "publicacion": "1967-05-30",
+      "genero": ["Realismo mágico", "Literatura latinoamericana"],
+      "valoracion": 4.7
     },
     {
       "nombre": "Sapiens: De animales a dioses",
-      "descripcion": "Breve historia de la humanidad",
-      "img": "/images/libros/sapiens.jpg",
       "autor": "Yuval Noah Harari",
-      "precio": 16.0,
+      "precio": [13.0, 16.0],
+      "moneda": "$",
+      "img": [
+        "/images/libros/sapiens-1.jpg",
+        "/images/libros/sapiens-2.jpg"
+      ],
+      "link": "https://amzn.to/3IKUtAb",
+      "descripcion": "Un recorrido fascinante por la historia de la humanidad, desde la prehistoria hasta hoy.",
       "editorial": "Debate",
-      "paginas": 496
+      "idioma": "Español",
+      "paginas": 496,
+      "formato": "Tapa blanda",
+      "publicacion": "2011-06-04",
+      "genero": ["Historia", "Ciencia", "Ensayo"],
+      "valoracion": 4.9
     }
   ]
 }
