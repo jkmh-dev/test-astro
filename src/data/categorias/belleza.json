@@ -7,7 +7,8 @@
       "img": "/images/belleza/crema-hidratante.jpg",
       "precio": 14.99,
       "marca": "Nivea",
-      "tipo": "Cuidado facial"
+      "tipo": "Cuidado facial",
+      "link": "https://www.google.com"
     },
     {
       "nombre": "Labial rojo mate",
@@ -15,7 +16,8 @@
       "img": "/images/belleza/labial-rojo.jpg",
       "precio": 9.5,
       "marca": "Maybelline",
-      "tono": "Rojo pasión"
+      "tono": "Rojo pasión",
+      "link": "https://www.google.com"
     },
     {
       "nombre": "Shampoo anticaída",
@@ -23,7 +25,8 @@
       "img": "/images/belleza/shampoo-anticaida.jpg",
       "precio": 7.8,
       "marca": "Pantene",
-      "contenido": "400 ml"
+      "contenido": "400 ml",
+      "link": "https://www.google.com"
     },
     {
       "nombre": "Esmalte de uñas nude",
@@ -31,7 +34,8 @@
       "img": "/images/belleza/esmalte-nude.jpg",
       "precio": 4.99,
       "marca": "Essie",
-      "tono": "Natural beige"
+      "tono": "Natural beige",
+      "link": "https://www.google.com"
     },
     {
       "nombre": "Mascarilla facial de arcilla",
@@ -39,7 +43,8 @@
       "img": "/images/belleza/mascarilla-arcilla.jpg",
       "precio": 6.25,
       "marca": "L’Oréal",
-      "tipo": "Purificante"
+      "tipo": "Purificante",
+      "link": "https://www.google.com"
     }
   ]
 }

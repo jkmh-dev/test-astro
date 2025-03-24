@@ -7,7 +7,8 @@
       "img": "/images/deporte/balon-futbol.jpg",
       "precio": 24.99,
       "marca": "Adidas",
-      "talla": "5"
+      "talla": "5",
+      "link": "https://www.google.com"
     },
     {
       "nombre": "Pesas de mano 5kg",
@@ -15,7 +16,8 @@
       "img": "/images/deporte/pesas.jpg",
       "precio": 19.5,
       "marca": "Domyos",
-      "peso": "5 kg"
+      "peso": "5 kg",
+      "link": "#"
     },
     {
       "nombre": "Mancuernas ajustables",

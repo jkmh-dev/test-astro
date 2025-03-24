@@ -2,13 +2,50 @@
 const { producto } = Astro.props;
 ---
 
-<div class="text-gray-700">
-  <p class="text-xl font-semibold text-red-500">{producto.descripcion}</p>
+<div class="text-gray-800 space-y-4">
+
+  <!-- Descripción -->
+  <p class="text-lg leading-relaxed">
+    {producto.descripcion}
+  </p>
+
+  <!-- Precio -->
+  {producto.precio && (
+    <p class="text-2xl font-bold text-green-600">
+      Precio: ${producto.precio}
+    </p>
+  )}
+
+  <!-- Marca -->
+  {producto.marca && (
+    <p class="text-md text-gray-600">
+      Marca: <span class="font-semibold text-gray-800">{producto.marca}</span>
+    </p>
+  )}
+
+  <!-- Atributos adicionales -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+    {Object.entries(producto).map(([clave, valor]) => {
+      if (
+        ["nombre", "descripcion", "precio", "marca", "img", "link"].includes(clave)
+      ) return null;
+
+      return (
+        <div class="flex gap-2">
+          <span class="capitalize font-medium text-gray-700">{clave}:</span>
+          <span class="text-gray-600">{valor}</span>
+        </div>
+      );
+    })}
+  </div>
+
+  <!-- Link externo -->
   {producto.link && (
     <a
       href={Array.isArray(producto.link) ? producto.link[0] : producto.link}
       target="_blank"
-      class="mt-4 inline-block rounded bg-blue-500 px-4 py-2 font-semibold text-white transition hover:bg-blue-600"
+      rel="noopener noreferrer"
+      class="inline-block mt-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded transition"
     >
       Ver Producto
     </a>

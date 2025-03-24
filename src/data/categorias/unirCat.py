@@ -2,7 +2,7 @@ import os
 import json
 
 carpeta = r'C:\Users\USER\Desktop\Proyecto web\Emprendimiento\src\data\categorias'
-archivo_salida = r'C:\Users\USER\Desktop\Proyecto web\Emprendimiento\public\data\productos.json'
+archivo_salida = r'C:\Users\USER\Desktop\Proyecto web\Emprendimiento\src\data\productos.json'
 
 
 # Lista para almacenar todos los productos

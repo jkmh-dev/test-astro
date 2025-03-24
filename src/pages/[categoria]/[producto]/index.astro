@@ -1,6 +1,6 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
-import productosJson from "../../../data/productos.json";
+import { categorias } from "../../../data/categorias";
 import { generarSlug } from "../../../utils/slug";
 
 // Componentes específicos por categoría
@@ -17,7 +17,7 @@ const componentesPorCategoria: Record<string, (_props: Record<string, any>) => a
 export async function getStaticPaths() {
   const paths: { params: { categoria: string; producto: string } }[] = [];
 
-  productosJson.forEach((categoriaObj) => {
+  categorias.forEach((categoriaObj) => {
     const categoriaSlug = categoriaObj.nombre.toLowerCase();
 
     categoriaObj.productos.forEach((producto) => {
@@ -33,7 +33,7 @@ export async function getStaticPaths() {
 const { categoria, producto } = Astro.params;
 
 // 📌 Buscar categoría en el array
-const categoriaData = productosJson.find(
+const categoriaData = categorias.find(
   (c) => c.nombre.toLowerCase() === categoria
 );
 
