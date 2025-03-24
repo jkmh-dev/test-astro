@@ -1,21 +1,45 @@
 ---
 import { categorias } from "@/data/categorias";
+import { generarSlug } from "@/utils/slug"; // Asegúrate de que el path sea correcto
+
+// Detectar la categoría activa desde la ruta
+const currentSlug = Astro.url.pathname.split("/")[1] || "";
 ---
 
 <nav class="bg-white shadow-md">
   <div class="max-w-6xl mx-auto px-4 py-4 flex justify-between items-center">
-    <a href="/" class="text-xl font-semibold text-gray-900">Astro Amazon</a>
+    <a href="/" class="text-xl font-semibold text-gray-900 hover:text-blue-600 transition">Astro Amazon</a>
 
     <ul class="flex space-x-6">
-      <!-- <li><a href="/" class="text-gray-700 hover:text-blue-600">Inicio</a></li> -->
-      
-      {categorias.map((categoria) => (
-        <li>
-          <a href={`/${categoria.nombre.toLowerCase()}`} class="text-gray-700 hover:text-blue-600 capitalize">
-            {categoria.nombre}
-          </a>
-        </li>
-      ))}
+      <li>
+        <a
+          href="/"
+          class={`text-sm font-medium transition hover:text-blue-300 ${
+            currentSlug === "" ? "text-blue-600 font-semibold" : "text-gray-700"
+          }`}
+        >
+          Inicio
+        </a>
+      </li>
+
+      {categorias.map((categoria) => {
+        const slug = generarSlug(categoria.nombre);
+        const esActiva = currentSlug === slug;
+
+        return (
+          <li>
+            <a
+              href={`/${slug}`}
+              class={`capitalize text-sm font-medium transition px-2 py-1 rounded
+                ${esActiva
+                  ? "text-blue-600 font-semibold"
+                  : "text-gray-700 hover:text-blue-300"}`}
+            >
+              {categoria.nombre}
+            </a>
+          </li>
+        );
+      })}
     </ul>
   </div>
 </nav>

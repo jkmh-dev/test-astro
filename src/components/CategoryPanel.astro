@@ -1,6 +1,20 @@
 ---
 import { categorias } from "@/data/categorias";
 
+const productosPorCategoria: Record<string, any[]> = categorias.reduce(
+  (acc, item) => {
+    const key = item.nombre.toLowerCase();
+    acc[key] = item.productos;
+    return acc;
+  },
+  {} as Record<string, any[]>
+);
+const jsonString = JSON.stringify(productosPorCategoria)
+  .replace(/</g, "\\u003c")
+  .replace(/-->/g, "--\\>");
+
+console.log(jsonString);
+
 // Extraer los nombres de las categorías
 const iconosPorCategoria: Record<string, string> = {
   belleza: "💄",
@@ -24,7 +38,7 @@ const Categorias = categorias.map((c) => {
       <li>
         <a
           href="#"
-          class="flex items-center gap-2 px-5 py-3 rounded-lg bg-white border border-gray-200 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 ease-in-out cursor-pointer categoria-btn text-gray-800 font-medium"
+          class="categoria-btn flex items-center gap-2 px-5 py-3 rounded-lg bg-white border border-gray-200 shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 ease-in-out cursor-pointer text-gray-800 font-medium"
           data-categoria={nombre}
         >
           <span class="text-2xl">{icono}</span>
@@ -35,76 +49,112 @@ const Categorias = categorias.map((c) => {
   }
 </ul>
 
-<div id="categoria-contenido" class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"></div>
+<div
+  id="categoria-contenido"
+  class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+>
+</div>
+<pre id="productos-data" hidden>{jsonString}</pre>
 
-<script>
+<script type="module">
   document.addEventListener("DOMContentLoaded", () => {
-    const contenedor = document.getElementById("categoria-contenido") as HTMLElement;
+    const productosScript = document.getElementById("productos-data");
+    const contenedor = document.getElementById("categoria-contenido");
+    const botones = document.querySelectorAll(".categoria-btn");
 
-    fetch("/data/productos.json")
-      .then((res) => res.json())
-      .then((categorias) => {
-        const botones = document.querySelectorAll(".categoria-btn");
+    let productosData = {};
 
-        botones.forEach((btn) => {
-          btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            const nombreCategoria = btn.getAttribute("data-categoria") || "";
-            const categoria = categorias.find(
-              (c: any) => c.nombre === nombreCategoria
-            );
+    try {
+      productosData = JSON.parse(productosScript.textContent);
+    } catch (error) {
+      return;
+    }
 
-            contenedor.innerHTML = "";
-
-            if (categoria && Array.isArray(categoria.productos)) {
-              categoria.productos.forEach((producto: any) => {
-                const slug = generarSlug(producto.nombre);
-                const link = document.createElement("a");
-                link.href = `/${nombreCategoria.toLowerCase()}/${slug}`;
-                link.className = `
-                  block bg-gradient-to-br from-white via-gray-50 to-gray-100
-                  border border-gray-200 rounded-lg p-4
-                  shadow hover:shadow-xl hover:scale-105
-                  transition-all duration-200 ease-in-out
-                  transform
-                `;
-
-                link.innerHTML = `
-                  <h3 class="text-lg font-semibold mb-1 text-gray-800">${producto.nombre}</h3>
-                  <p class="text-sm text-gray-600 mb-2">${producto.descripcion}</p>
-                  <p class="text-sm font-medium text-green-600">Precio: $${producto.precio}</p>
-                `;
-
-                contenedor.appendChild(link);
-              });
-            } else {
-              contenedor.textContent = "No hay productos en esta categoría.";
-            }
-          });
-        });
-
-        // Mostrar la primera categoría automáticamente
-        const primera = categorias[0];
-        if (primera) {
-          const primerBtn = document.querySelector<HTMLAnchorElement>(
-            `[data-categoria="${primera.nombre}"]`
-          );
-          primerBtn?.click();
-        }
-
-        // Función para generar slug
-        function generarSlug(texto: string): string {
-          return texto
-            .toLowerCase()
-            .normalize("NFD")
-            .replace(/[\u0300-\u036f]/g, "") // Quitar tildes
-            .replace(/[^\w\s-]/g, "") // Quitar símbolos
-            .trim()
-            .replace(/\s+/g, "-"); // Espacios por guiones
-        }
-      })
-      .catch((err) => {
-        console.error("Error al cargar productos:", err);
+    function activarBoton(btnActivo) {
+      botones.forEach((btn) => {
+        btn.classList.remove(
+          "bg-blue-100",
+          "border-blue-500",
+          "text-blue-700",
+          "font-semibold"
+        );
+        btn.classList.add(
+          "bg-white",
+          "border-gray-200",
+          "text-gray-800",
+          "font-medium"
+        );
       });
+
+      btnActivo.classList.remove(
+        "bg-white",
+        "border-gray-200",
+        "text-gray-800",
+        "font-medium"
+      );
+      btnActivo.classList.add(
+        "bg-blue-100",
+        "border-blue-500",
+        "text-blue-700",
+        "font-semibold"
+      );
+    }
+
+    function generarSlug(texto) {
+      return texto
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^\w\s-]/g, "")
+        .trim()
+        .replace(/\s+/g, "-");
+    }
+
+    botones.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const nombreCategoria =
+          btn.getAttribute("data-categoria")?.toLowerCase() || "";
+        const productos = productosData[nombreCategoria];
+
+        activarBoton(btn);
+        contenedor.innerHTML = "";
+
+        if (Array.isArray(productos) && productos.length > 0) {
+          productos.forEach((producto) => {
+            const slug = generarSlug(producto.nombre);
+            const link = document.createElement("a");
+            link.href = `/${nombreCategoria}/${slug}`;
+            link.className = `
+  block bg-gradient-to-br from-white via-gray-50 to-gray-100
+  border border-gray-200 rounded-lg p-4
+  shadow hover:brightness-95 transition duration-200 ease-in-out
+`;
+
+
+            link.innerHTML = `
+              <h3 class="text-lg font-semibold mb-1 text-gray-800">${producto.nombre}</h3>
+              <p class="text-sm text-gray-600 mb-2">${producto.descripcion}</p>
+              ${
+                producto.precio
+                  ? `<p class="text-sm font-medium text-green-600">Precio: $${producto.precio}</p>`
+                  : ""
+              }
+            `;
+
+            contenedor.appendChild(link);
+          });
+        } else {
+          contenedor.textContent = "No hay productos en esta categoría.";
+        }
+      });
+    });
+
+    const primerBtn = document.querySelector(".categoria-btn");
+    if (primerBtn) {
+      activarBoton(primerBtn);
+      primerBtn.click();
+    }
   });
 </script>
