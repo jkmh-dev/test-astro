@@ -124,21 +124,32 @@ const Categorias = categorias.map((c) => {
         if (Array.isArray(productos) && productos.length > 0) {
           productos.forEach((producto) => {
             const slug = generarSlug(producto.nombre);
+            const imagen = Array.isArray(producto.img)
+              ? producto.img[0]
+              : producto.img || "/images/default.jpg";
+
             const link = document.createElement("a");
             link.href = `/${nombreCategoria}/${slug}`;
             link.className = `
-  block bg-gradient-to-br from-white via-gray-50 to-gray-100
-  border border-gray-200 rounded-lg p-4
-  shadow hover:brightness-95 transition duration-200 ease-in-out
-`;
-
+              block bg-gradient-to-br from-white via-gray-50 to-gray-100
+              p-6 rounded-lg shadow transition hover:brightness-90
+              duration-200 ease-in-out border border-gray-200
+            `;
 
             link.innerHTML = `
-              <h3 class="text-lg font-semibold mb-1 text-gray-800">${producto.nombre}</h3>
-              <p class="text-sm text-gray-600 mb-2">${producto.descripcion}</p>
+              <img
+                src="${imagen}"
+                alt="${producto.nombre}"
+                class="w-full h-48 object-cover rounded mb-4"
+              />
+
+              <h2 class="text-xl font-semibold text-center text-gray-800">
+                ${producto.nombre}
+              </h2>
+
               ${
-                producto.precio
-                  ? `<p class="text-sm font-medium text-green-600">Precio: $${producto.precio}</p>`
+                producto.descripcion
+                  ? `<p class="text-center text-sm text-gray-600 mt-1">${producto.descripcion}</p>`
                   : ""
               }
             `;

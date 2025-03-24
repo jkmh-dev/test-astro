@@ -18,7 +18,7 @@ export async function getStaticPaths() {
   const paths: { params: { categoria: string; producto: string } }[] = [];
 
   categorias.forEach((categoriaObj) => {
-    const categoriaSlug = categoriaObj.nombre.toLowerCase();
+    const categoriaSlug = generarSlug(categoriaObj.nombre); // ✅ Usar slug limpio
 
     categoriaObj.productos.forEach((producto) => {
       const productoSlug = generarSlug(producto.nombre);
@@ -32,9 +32,9 @@ export async function getStaticPaths() {
 // 📌 Obtener la categoría y el producto desde la URL
 const { categoria, producto } = Astro.params;
 
-// 📌 Buscar categoría en el array
+// 📌 Buscar categoría en el array usando slug normalizado
 const categoriaData = categorias.find(
-  (c) => c.nombre.toLowerCase() === categoria
+  (c) => generarSlug(c.nombre) === categoria // ✅ Comparación segura
 );
 
 // 📌 Obtener el producto correspondiente comparando slugs
@@ -44,11 +44,11 @@ const productoSeleccionado = categoriaData?.productos.find(
 
 // 📌 Seleccionar componente adecuado solo si hay producto
 const tieneComponenteEspecifico =
-  categoriaData?.nombre && categoriaData.nombre.toLowerCase() in componentesPorCategoria;
+  categoriaData?.nombre && generarSlug(categoriaData.nombre) in componentesPorCategoria;
 
 const ComponenteDetalles = productoSeleccionado
   ? (tieneComponenteEspecifico
-      ? componentesPorCategoria[categoriaData!.nombre.toLowerCase()]
+      ? componentesPorCategoria[generarSlug(categoriaData!.nombre)]
       : ProductoGeneral)
   : null;
 
@@ -60,22 +60,11 @@ const imagenPrincipal = productoSeleccionado?.img
   : "/images/default.jpg";
 ---
 
-
 <Layout>
   <div class="container mx-auto px-4 py-10">
     <div class="flex flex-col md:flex-row gap-8 justify-center">
       {productoSeleccionado && ComponenteDetalles ? (
         <>
-          {/*
-          <div class="md:w-1/2 w-full">
-            <img
-              src={imagenPrincipal}
-              alt={productoSeleccionado.nombre}
-              class="w-full h-full max-h-[600px] object-cover rounded-xl shadow-xl"
-            />
-          </div>
-          */}
-
           <!-- Detalles dinámicos según categoría -->
           <div class="md:w-2/3">
             <p class="text-sm text-gray-500 uppercase">
