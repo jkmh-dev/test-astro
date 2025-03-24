@@ -4,8 +4,11 @@
     {
       "nombre": "Hábitos Atómicos",
       "autor": "James Clear",
-      "precio": [10.5, 15.6],
       "moneda": "$",
+      "formatos": [
+        { "nombre": "Tapa blanda", "precio": 10.5 },
+        { "nombre": "Tapa dura", "precio": 15.6 }
+      ],
       "img": [
         "/images/book/habitos-atomicos-1.0.jpg",
         "/images/book/habitos-atomicos-2.0.jpg",
@@ -16,7 +19,6 @@
       "editorial": "Paidós",
       "idioma": "Español",
       "paginas": 320,
-      "formato":["Tapa blanda","Tapa dura"],
       "publicacion": "2018-10-16",
       "genero": ["Desarrollo Personal", "Psicología"],
       "valoracion": 4.8
@@ -24,8 +26,10 @@
     {
       "nombre": "El poder del ahora",
       "autor": "Eckhart Tolle",
-      "precio": [11.0, 14.0],
       "moneda": "$",
+      "formatos": [
+        { "nombre": "Tapa dura", "precio": 14.0 }
+      ],
       "img": [
         "/images/libros/el-poder-del-ahora-1.jpg",
         "/images/libros/el-poder-del-ahora-2.jpg"
@@ -35,7 +39,6 @@
       "editorial": "Grijalbo",
       "idioma": "Español",
       "paginas": 236,
-      "formato": "Tapa dura",
       "publicacion": "1997-01-01",
       "genero": ["Espiritualidad", "Autoayuda"],
       "valoracion": 4.6
@@ -43,8 +46,11 @@
     {
       "nombre": "1984",
       "autor": "George Orwell",
-      "precio": [9.99, 13.25],
       "moneda": "$",
+      "formatos": [
+        { "nombre": "Tapa blanda", "precio": 9.99 },
+        { "nombre": "Tapa dura", "precio": 13.25 }
+      ],
       "img": [
         "/images/libros/1984-1.jpg",
         "/images/libros/1984-2.jpg"
@@ -54,7 +60,6 @@
       "editorial": "Debolsillo",
       "idioma": "Español",
       "paginas": 352,
-      "formato": "Tapa blanda",
       "publicacion": "1949-06-08",
       "genero": ["Ficción política", "Ciencia ficción"],
       "valoracion": 4.9
@@ -62,8 +67,10 @@
     {
       "nombre": "Cien años de soledad",
       "autor": "Gabriel García Márquez",
-      "precio": [12.0, 18.75],
       "moneda": "$",
+      "formatos": [
+        { "nombre": "Tapa dura", "precio": 18.75 }
+      ],
       "img": [
         "/images/libros/cien-anos-de-soledad-1.jpg",
         "/images/libros/cien-anos-de-soledad-2.jpg"
@@ -73,7 +80,6 @@
       "editorial": "Sudamericana",
       "idioma": "Español",
       "paginas": 432,
-      "formato": "Tapa dura",
       "publicacion": "1967-05-30",
       "genero": ["Realismo mágico", "Literatura latinoamericana"],
       "valoracion": 4.7
@@ -81,8 +87,11 @@
     {
       "nombre": "Sapiens: De animales a dioses",
       "autor": "Yuval Noah Harari",
-      "precio": [13.0, 16.0],
       "moneda": "$",
+      "formatos": [
+        { "nombre": "Tapa blanda", "precio": 13.0 },
+        { "nombre": "Tapa dura", "precio": 16.0 }
+      ],
       "img": [
         "/images/libros/sapiens-1.jpg",
         "/images/libros/sapiens-2.jpg"
@@ -92,7 +101,6 @@
       "editorial": "Debate",
       "idioma": "Español",
       "paginas": 496,
-      "formato": "Tapa blanda",
       "publicacion": "2011-06-04",
       "genero": ["Historia", "Ciencia", "Ensayo"],
       "valoracion": 4.9

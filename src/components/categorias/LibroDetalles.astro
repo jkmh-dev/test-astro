@@ -2,15 +2,13 @@
 const { producto } = Astro.props;
 
 const imagenes = Array.isArray(producto.img) ? producto.img : [producto.img];
-const precios = Array.isArray(producto.precio)
-  ? producto.precio
-  : [producto.precio];
 const generos = Array.isArray(producto.genero)
   ? producto.genero
   : producto.genero
     ? [producto.genero]
     : [];
 const moneda = producto.moneda ?? "$";
+const formatos = Array.isArray(producto.formatos) ? producto.formatos : [];
 ---
 
 <div class="container mx-auto px-4 py-10">
@@ -28,7 +26,7 @@ const moneda = producto.moneda ?? "$";
       {
         imagenes.length > 1 && (
           <div class="flex gap-4 justify-center">
-            {imagenes.map((img, i) => (
+            {imagenes.map((img: string, i: number) => (
               <img
                 src={img}
                 alt={`${producto.nombre} ${i + 1}`}
@@ -99,39 +97,37 @@ const moneda = producto.moneda ?? "$";
       }
 
       <!-- Precio y formatos -->
-      <div class="space-y-4">
-        {
-          precios.length > 1 ? (
-            <>
-              <div class="flex gap-4">
-                <button
-                  id="btnTapaBlanda"
-                  data-precio={precios[0]}
-                  class="px-4 py-2 rounded-lg font-semibold bg-blue-600 text-white shadow-lg"
-                >
-                  Tapa blanda
-                </button>
-                <button
-                  id="btnTapaDura"
-                  data-precio={precios[1]}
-                  class="px-4 py-2 rounded-lg font-semibold bg-gray-200 text-gray-800"
-                >
-                  Tapa dura
-                </button>
+      {
+        formatos.length > 0 && (
+          <div class="space-y-4">
+            {formatos.length > 1 && (
+              <div class="flex gap-4 flex-wrap">
+                {formatos.map(
+                  (
+                    formato: { nombre: string; precio: number },
+                    index: number
+                  ) => (
+                    <button
+                      class={`btn-formato px-4 py-2 rounded-lg font-semibold transition ${
+                        index === 0
+                          ? "bg-blue-600 text-white shadow-lg"
+                          : "bg-gray-200 text-gray-800"
+                      }`}
+                      data-precio={formato.precio}
+                    >
+                      {formato.nombre}
+                    </button>
+                  )
+                )}
               </div>
-              <div id="precioLibro" class="text-2xl font-bold text-green-600">
-                {moneda}
-                {precios[0].toFixed(2)}
-              </div>
-            </>
-          ) : (
+            )}
             <div id="precioLibro" class="text-2xl font-bold text-green-600">
               {moneda}
-              {precios[0]?.toFixed(2)}
+              {formatos[0].precio.toFixed(2)}
             </div>
-          )
-        }
-      </div>
+          </div>
+        )
+      }
 
       <!-- Comprar -->
       {
@@ -160,42 +156,42 @@ const moneda = producto.moneda ?? "$";
 <!-- Script funcional -->
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const imagenPrincipal = document.getElementById("imagenPrincipal");
+    const imagenPrincipal = document.getElementById(
+      "imagenPrincipal"
+    ) as HTMLImageElement | null;
     const miniaturas = document.querySelectorAll(".miniatura");
-    const btnTapaBlanda = document.getElementById("btnTapaBlanda");
-    const btnTapaDura = document.getElementById("btnTapaDura");
+    const botonesFormato = document.querySelectorAll(".btn-formato") as NodeListOf<HTMLButtonElement>;
     const precioLibro = document.getElementById("precioLibro");
-
-    if (!imagenPrincipal || !precioLibro) return;
 
     // Cambiar imagen principal
     miniaturas.forEach((mini) => {
       mini.addEventListener("click", () => {
-        imagenPrincipal.src = mini.src;
+        if (imagenPrincipal) {
+          imagenPrincipal.src = "nueva-imagen.jpg"; // ✅ Solo se usa si existe
+        }
       });
     });
 
-    // Cambiar precio
-    function actualizarPrecio(btnActivo, btnInactivo) {
-      const precio = btnActivo.dataset.precio;
-      if (precio) {
-        precioLibro.textContent = "$" + parseFloat(precio).toFixed(2);
-      }
+    // Cambiar precio según el botón
+    botonesFormato.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const precio = btn.dataset.precio;
+        if (precioLibro && precio) {
+          precioLibro.textContent = "$" + parseFloat(precio).toFixed(2);
+        }
 
-      btnActivo.classList.add("bg-blue-600", "text-white", "shadow-lg");
-      btnActivo.classList.remove("bg-gray-200", "text-gray-800");
+        // Reset estilos
+        botonesFormato.forEach((b) =>
+          b.classList.replace("bg-blue-600", "bg-gray-200")
+        );
+        botonesFormato.forEach((b) =>
+          b.classList.replace("text-white", "text-gray-800")
+        );
 
-      btnInactivo.classList.add("bg-gray-200", "text-gray-800");
-      btnInactivo.classList.remove("bg-blue-600", "text-white", "shadow-lg");
-    }
-
-    if (btnTapaBlanda && btnTapaDura) {
-      btnTapaBlanda.addEventListener("click", () =>
-        actualizarPrecio(btnTapaBlanda, btnTapaDura)
-      );
-      btnTapaDura.addEventListener("click", () =>
-        actualizarPrecio(btnTapaDura, btnTapaBlanda)
-      );
-    }
+        // Activar botón actual
+        btn.classList.add("bg-blue-600", "text-white", "shadow-lg");
+        btn.classList.remove("bg-gray-200", "text-gray-800");
+      });
+    });
   });
 </script>

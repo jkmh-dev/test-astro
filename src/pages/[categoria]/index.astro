@@ -2,6 +2,7 @@
 import Layout from "../../layouts/Layout.astro";
 import { categorias } from "@/data/categorias";
 import { generarSlug } from "../../utils/slug";
+
 // 📌 Generar rutas estáticas para categorías
 export async function getStaticPaths() {
   return categorias.map((categoria) => ({
@@ -19,7 +20,8 @@ const categoriaData = categorias.find(
 
 // 📌 Extraer productos (o arreglo vacío si no se encuentra)
 const productos = categoriaData?.productos ?? [];
-console.log(categoriaData)
+
+console.log("📦 Categoría:", categoriaData);
 ---
 
 <Layout>
@@ -32,6 +34,18 @@ console.log(categoriaData)
       productos.length > 0 ? (
         productos.map((producto) => {
           const slug = generarSlug(producto.nombre);
+          const imagenPrincipal = Array.isArray(producto.img)
+            ? producto.img[0]
+            : producto.img;
+
+          const moneda =
+            "moneda" in producto && typeof producto.moneda === "string"
+              ? producto.moneda
+              : "$";
+          const formatos =
+            "formatos" in producto && Array.isArray(producto.formatos)
+              ? producto.formatos
+              : [];
 
           return (
             <a
@@ -39,7 +53,7 @@ console.log(categoriaData)
               class="block bg-gradient-to-br from-white via-gray-50 to-gray-100 p-6 rounded-lg shadow hover:shadow-xl hover:scale-105 transition-all"
             >
               <img
-                src={Array.isArray(producto.img) ? producto.img[0] : producto.img}
+                src={imagenPrincipal}
                 alt={producto.nombre}
                 class="w-full h-48 object-cover rounded mb-4"
               />
@@ -47,12 +61,23 @@ console.log(categoriaData)
               <h2 class="text-xl font-semibold text-center text-gray-800">
                 {producto.nombre}
               </h2>
-              <p class="text-center text-sm text-gray-600 mt-1">
-                {producto.descripcion}
-              </p>
-              <p class="text-center text-green-600 font-medium mt-2">
-                ${producto.precio}
-              </p>
+
+              {producto.descripcion && (
+                <p class="text-center text-sm text-gray-600 mt-1">
+                  {producto.descripcion}
+                </p>
+              )}
+
+              {formatos.length > 0 && (
+                <div class="mt-3 text-sm text-center text-green-700 space-y-1">
+                  {formatos.map((f) => (
+                    <p>
+                      <strong>{f.nombre}:</strong> {moneda}
+                      {f.precio.toFixed(2)}
+                    </p>
+                  ))}
+                </div>
+              )}
             </a>
           );
         })
