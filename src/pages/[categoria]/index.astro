@@ -1,52 +1,65 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import productosJson from "../../data/productos.json";
-import { generarSlug } from "../../utils/slug"; // 📌 Importamos la función de slug
-
+import { categorias } from "@/data/categorias";
+import { generarSlug } from "../../utils/slug";
 // 📌 Generar rutas estáticas para categorías
 export async function getStaticPaths() {
-  return Object.keys(productosJson).map((categoria) => ({
-    params: { categoria }
+  return categorias.map((categoria) => ({
+    params: { categoria: categoria.nombre.toLowerCase() },
   }));
 }
 
 // 📌 Obtener la categoría desde la URL
 const { categoria } = Astro.params as { categoria?: string };
 
-// 📌 Verificar que la categoría existe en productosJson antes de acceder a sus datos
-const productos = categoria && categoria in productosJson
-  ? (productosJson[categoria as keyof typeof productosJson] as Array<typeof productosJson[keyof typeof productosJson][number]>)
-  : [];
+// 📌 Buscar la categoría en el array
+const categoriaData = categorias.find(
+  (c) => c.nombre.toLowerCase() === categoria
+);
+
+// 📌 Extraer productos (o arreglo vacío si no se encuentra)
+const productos = categoriaData?.productos ?? [];
+console.log(categoriaData)
 ---
 
 <Layout>
   <h1 class="text-3xl font-bold text-center my-6 capitalize">
-    {categoria ?? "Categoría no encontrada"}
+    {categoriaData?.nombre ?? "Categoría no encontrada"}
   </h1>
-  
+
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4">
-    {productos.length > 0
-      ? productos.map((producto) => {
+    {
+      productos.length > 0 ? (
+        productos.map((producto) => {
           const slug = generarSlug(producto.nombre);
-  
+
           return (
             <a
               href={`/${categoria}/${slug}`}
-              class="block bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition transform hover:scale-105"
+              class="block bg-gradient-to-br from-white via-gray-50 to-gray-100 p-6 rounded-lg shadow hover:shadow-xl hover:scale-105 transition-all"
             >
               <img
-                src={producto.img[0]}
+                src={producto.img}
                 alt={producto.nombre}
                 class="w-full h-48 object-cover rounded mb-4"
               />
-              <h2 class="text-xl font-semibold text-center">
+              <h2 class="text-xl font-semibold text-center text-gray-800">
                 {producto.nombre}
               </h2>
+              <p class="text-center text-sm text-gray-600 mt-1">
+                {producto.descripcion}
+              </p>
+              <p class="text-center text-green-600 font-medium mt-2">
+                ${producto.precio}
+              </p>
             </a>
           );
         })
-      : <p class="text-center text-gray-500">No hay productos en esta categoría.</p>
+      ) : (
+        <p class="text-center text-gray-500">
+          No hay productos en esta categoría.
+        </p>
+      )
     }
   </div>
-  
 </Layout>

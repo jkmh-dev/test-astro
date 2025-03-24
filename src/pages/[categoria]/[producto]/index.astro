@@ -1,85 +1,81 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import productosJson from "../../../data/productos.json";
-import { generarSlug } from "../../../utils/slug"; // 📌 Importamos la función para generar slugs
+import { generarSlug } from "../../../utils/slug";
 
-
-// Importar componentes específicos
+// Componentes específicos por categoría
 import LibroDetalles from "../../../components/categorias/LibroDetalles.astro";
 import ProductoGeneral from "../../../components/ProductoGeneral.astro";
 
-
-
+// Relación categoría → componente
 const componentesPorCategoria: Record<string, (_props: Record<string, any>) => any> = {
   Libros: LibroDetalles,
-  // Si deseas agregar componentes específicos para otras categorías, agrégalos aquí:
-  // belleza: BellezaDetalles,
-  // deporte: DeporteDetalles,
-  // moda: ModaDetalles,
-  // tecnologia: TecnologiaDetalles,
-  // hogar: HogarDetalles,
+  // Puedes añadir más aquí según tus necesidades
 };
 
 // 📌 Función para generar rutas estáticas
 export async function getStaticPaths() {
-  let paths: { params: { categoria: string; producto: string } }[] = [];
+  const paths: { params: { categoria: string; producto: string } }[] = [];
 
-  // Recorremos todas las categorías y productos
-  Object.entries(productosJson).forEach(([categoria, productos]) => {
-    (productos as { nombre: string }[]).forEach((producto) => {
-      const slug = generarSlug(producto.nombre); // 📌 Generamos el slug correctamente
-      paths.push({ params: { categoria, producto: slug } });
+  productosJson.forEach((categoriaObj) => {
+    const categoriaSlug = categoriaObj.nombre.toLowerCase();
+
+    categoriaObj.productos.forEach((producto) => {
+      const productoSlug = generarSlug(producto.nombre);
+      paths.push({ params: { categoria: categoriaSlug, producto: productoSlug } });
     });
   });
 
   return paths;
 }
 
-// 📌 Obtener la categoría y el producto desde la URL (sin `as` cast)
+// 📌 Obtener la categoría y el producto desde la URL
 const { categoria, producto } = Astro.params;
 
-// 📌 Verificar que la categoría existe y obtener sus productos
-const productos = categoria && categoria in productosJson
-  ? productosJson[categoria as keyof typeof productosJson]
-  : [];
+// 📌 Buscar categoría en el array
+const categoriaData = productosJson.find(
+  (c) => c.nombre.toLowerCase() === categoria
+);
 
-// 📌 Buscar el producto comparando el slug generado con el slug de la URL
-const productoSeleccionado = productos.find(
+// 📌 Obtener el producto correspondiente comparando slugs
+const productoSeleccionado = categoriaData?.productos.find(
   (p) => generarSlug(p.nombre) === producto
 );
 
-// Elegir componente adecuado según categoría
-const ComponenteDetalles = componentesPorCategoria[categoria as string] || ProductoGeneral;
-
+// 📌 Seleccionar componente adecuado
+const ComponenteDetalles =
+  componentesPorCategoria[categoriaData?.nombre || ""] || ProductoGeneral;
 ---
 
 <Layout>
   <div class="container mx-auto px-4 py-10">
     <div class="flex flex-col md:flex-row gap-8">
 
-      <!-- Imagen del Producto (Optimizada) -->
-<!--       <div class="md:w-1/2 w-full">
-        <img
-          src={Array.isArray(productoSeleccionado?.img) ? productoSeleccionado.img[0] : productoSeleccionado?.img}
-          alt={productoSeleccionado?.nombre}
-          class="w-full h-full max-h-[600px] object-cover rounded-xl shadow-xl"
-        />
-      </div> -->
+      {productoSeleccionado ? (
+        <>
+          <!-- Imagen del producto -->
+          <div class="md:w-1/2 w-full">
+            <img
+              src={productoSeleccionado.img}
+              alt={productoSeleccionado.nombre}
+              class="w-full h-full max-h-[600px] object-cover rounded-xl shadow-xl"
+            />
+          </div>
 
-      <!-- Detalles dinámicos según categoría -->
-      <div class="md:w-2/3">
-        <p class="text-sm text-gray-500 uppercase">Categoría: {categoria}</p>
-        <h1 class="text-3xl font-bold text-gray-800 mt-2 mb-4">
-          {productoSeleccionado?.nombre}
-        </h1>
+          <!-- Detalles dinámicos según categoría -->
+          <div class="md:w-2/3">
+            <p class="text-sm text-gray-500 uppercase">Categoría: {categoriaData?.nombre}</p>
+            <h1 class="text-3xl font-bold text-gray-800 mt-2 mb-4">
+              {productoSeleccionado.nombre}
+            </h1>
 
-        <!-- Aquí se renderiza dinámicamente el componente según categoría -->
-        <ComponenteDetalles producto={productoSeleccionado} />
-
-        <!-- Descripción común para todas las categorías -->
-        </div>
-      </div>
-
+            <!-- Componente específico o general -->
+            <ComponenteDetalles producto={productoSeleccionado} />
+          </div>
+        </>
+      ) : (
+        <p class="text-center text-red-500 w-full">Producto no encontrado.</p>
+      )}
     </div>
   </div>
 </Layout>
