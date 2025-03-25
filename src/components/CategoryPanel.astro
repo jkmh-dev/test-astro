@@ -1,14 +1,16 @@
 ---
 import { categorias } from "@/data/categorias";
+import { generarSlug } from "@/utils/slug";
 
 const productosPorCategoria: Record<string, any[]> = categorias.reduce(
   (acc, item) => {
-    const key = item.nombre.toLowerCase();
+    const key = generarSlug(item.nombre);
     acc[key] = item.productos;
     return acc;
   },
   {} as Record<string, any[]>
 );
+
 const jsonString = JSON.stringify(productosPorCategoria)
   .replace(/</g, "\\u003c")
   .replace(/-->/g, "--\\>");
@@ -27,9 +29,11 @@ const iconosPorCategoria: Record<string, string> = {
 
 const Categorias = categorias.map((c) => {
   const nombre = c.nombre;
-  const icono = iconosPorCategoria[nombre.toLowerCase()] || "📦";
+  const slug = generarSlug(nombre);
+  const icono = iconosPorCategoria[slug] || "📦";
   return { nombre, icono };
 });
+
 ---
 
 <ul class="flex flex-wrap justify-center gap-4 my-6">
@@ -114,22 +118,22 @@ const Categorias = categorias.map((c) => {
       btn.addEventListener("click", (e) => {
         e.preventDefault();
 
-        const nombreCategoria =
-          btn.getAttribute("data-categoria")?.toLowerCase() || "";
-        const productos = productosData[nombreCategoria];
+        const nombreCategoria = btn.getAttribute("data-categoria") || "";
+        const slugCategoria = generarSlug(nombreCategoria);
+        const productos = productosData[slugCategoria];
 
         activarBoton(btn);
         contenedor.innerHTML = "";
 
         if (Array.isArray(productos) && productos.length > 0) {
           productos.forEach((producto) => {
-            const slug = generarSlug(producto.nombre);
+            const slugProducto = generarSlug(producto.nombre);
             const imagen = Array.isArray(producto.img)
               ? producto.img[0]
               : producto.img || "/images/default.jpg";
 
             const link = document.createElement("a");
-            link.href = `/${nombreCategoria}/${slug}`;
+            link.href = `/${slugCategoria}/${slugProducto}`;
             link.className = `
               block bg-gradient-to-br from-white via-gray-50 to-gray-100
               p-6 rounded-lg shadow transition hover:brightness-90
